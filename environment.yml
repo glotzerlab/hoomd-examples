@@ -12,8 +12,8 @@ dependencies:
 - fontconfig=2.11.1=6
 - freetype=2.5.5=1
 - glib=2.43.0=1
-- glotzer::gsd=1.0.1=py35_0
-- glotzer::hoomd=2.0.2=py35_0
+- gsd=1.0.1=py35_0
+- hoomd=2.0.2=py35_0
 - harfbuzz=0.9.39=1
 - icu=54.1=0
 - ipykernel=4.4.1=py35_0
@@ -76,12 +76,5 @@ dependencies:
 - yaml=0.1.6=0
 - zeromq=4.1.4=0
 - zlib=1.2.8=3
-- pip:
-  - gsd==1.0.1
-  - ipython-genutils==0.1.0
-  - jupyter-client==4.3.0
-  - jupyter-console==5.0.0
-  - jupyter-core==4.1.1
-  - prompt-toolkit==1.0.3
 prefix: /home/joaander/miniconda3/envs/hoomd-examples
 
