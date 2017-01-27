@@ -3,17 +3,12 @@ import gsd
 import gsd.fl
 import gsd.hoomd
 import numpy
-
-# temporary - eventually this helper will be part of Fresnel
-import PIL.Image
+import PIL
+import IPython
 import io
-import IPython.display
-def showarray(a, fmt='png'):
-    f = io.BytesIO()
-    PIL.Image.fromarray(a, mode='RGBA').save(f, fmt)
-    return IPython.display.display(IPython.display.Image(data=f.getvalue()))
 
-device = fresnel.Device();
+device = fresnel.Device(mode='cpu');
+tracer = fresnel.tracer.Direct(device, 300, 300)
 
 def render_disks(gsd_file):
     global device;
@@ -32,12 +27,13 @@ def render_disk_frame(frame, Ly=None):
             Ly = frame.box.Ly;
 
     scene = fresnel.Scene(device)
-    g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=frame.particles.diameter*0.5)
-    g.material = fresnel.material.Material(solid=1.0, color=(0.25,0.5,1), geometry_color_mix=0.0)
-    cam = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
-    whitted = fresnel.tracer.Whitted(device, 300, 300)
-    whitted.set_camera(cam)
-    return whitted.render(scene)
+    g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=numpy.ones(frame.particles.N)*0.5)
+    g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=0.0)
+    g.outline_width = 0.05
+    scene.camera = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
+    scene.background_color = (1,1,1)
+
+    return tracer.render(scene)
 
 def render_polygon_frame(frame, verts, Ly=None):
 
@@ -50,11 +46,12 @@ def render_polygon_frame(frame, verts, Ly=None):
     scene = fresnel.Scene(device)
     ang = numpy.arctan2(frame.particles.orientation[:,3], frame.particles.orientation[:,0])*2
     g = fresnel.geometry.Prism(scene, vertices=verts, position=frame.particles.position[:,0:2], angle=ang, height=numpy.ones(frame.particles.N)*0.5)
-    g.material = fresnel.material.Material(solid=1.0, color=(0.25,0.5,1), geometry_color_mix=0.0)
-    cam = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
-    whitted = fresnel.tracer.Whitted(device, 300, 300)
-    whitted.set_camera(cam)
-    return whitted.render(scene)
+    g.outline_width = 0.05
+    g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]))
+    scene.camera = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
+    scene.background_color = (1,1,1)
+
+    return tracer.render(scene)
 
 def display_movie(frame_gen, gsd_file):
     f = gsd.fl.GSDFile(gsd_file, 'rb')
