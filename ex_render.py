@@ -6,6 +6,7 @@ import numpy
 import PIL
 import IPython
 import io
+import math
 
 device = fresnel.Device(mode='cpu');
 tracer = fresnel.tracer.Direct(device, 300, 300)
@@ -18,6 +19,30 @@ def render_disks(gsd_file):
 
     return render_disk_frame(t[-1])
 
+def render_sphere_frame(frame, height=None):
+
+    if height is None:
+        if hasattr(frame, 'configuration'):
+            Ly = frame.configuration.box[1]
+            height = Ly * math.sqrt(3)
+        else:
+            Ly = frame.box.Ly;
+            height = Ly * math.sqrt(3)
+
+    scene = fresnel.Scene(device)
+    g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=numpy.ones(frame.particles.N)*0.5)
+    g.material = fresnel.material.Material(solid=0.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=1.0)
+    g.outline_width = 0.1
+    scene.camera = fresnel.camera.Orthographic(position=(height, height, height), look_at=(0,0,0), up=(0,1,0), height=height)
+
+    g.color[frame.particles.typeid == 0] = fresnel.color.linear([0.25,0.5,1])
+    g.color[frame.particles.typeid == 1] = fresnel.color.linear([1.0,0.714,0.169])
+
+    scene.background_color = (1,1,1)
+    scene.light_direction = (4,3,0)
+
+    return tracer.render(scene)
+
 def render_disk_frame(frame, Ly=None):
 
     if Ly is None:
@@ -27,7 +52,7 @@ def render_disk_frame(frame, Ly=None):
             Ly = frame.box.Ly;
 
     scene = fresnel.Scene(device)
-    g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=numpy.ones(frame.particles.N)*0.5)
+    g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=frame.particles.diameter*0.5)
     g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=0.0)
     g.outline_width = 0.05
     scene.camera = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)

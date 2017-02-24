@@ -1,4 +1,5 @@
 .ipynb_checkpoints
 *.gsd
 *.log
+*.xml
 __pycache__
