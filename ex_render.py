@@ -53,9 +53,13 @@ def render_disk_frame(frame, Ly=None):
 
     scene = fresnel.Scene(device)
     g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=frame.particles.diameter*0.5)
-    g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=0.0)
+    g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=1.0)
     g.outline_width = 0.05
     scene.camera = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
+
+    g.color[frame.particles.typeid == 0] = fresnel.color.linear([0.25,0.5,1])
+    g.color[frame.particles.typeid == 1] = fresnel.color.linear([1.0,0.714,0.169])
+
     scene.background_color = (1,1,1)
 
     return tracer.render(scene)
@@ -95,5 +99,7 @@ def display_movie(frame_gen, gsd_file):
     f = io.BytesIO()
     im0.save(f, 'gif', save_all=True, append_images=ims, duration=1000, loop=0)
 
-    print("Size:", len(f.getbuffer())/1024, "KiB")
+    size = len(f.getbuffer())/1024;
+    if (size > 1000):
+        print("Size:", size, "KiB")
     return IPython.display.display(IPython.display.Image(data=f.getvalue()))

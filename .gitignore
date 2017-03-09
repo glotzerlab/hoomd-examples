@@ -2,4 +2,7 @@
 *.gsd
 *.log
 *.xml
+*.bib
+*.json
+*.dcd
 __pycache__
