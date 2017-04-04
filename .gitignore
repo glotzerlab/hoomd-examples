@@ -5,4 +5,5 @@
 *.bib
 *.json
 *.dcd
+*.pyc
 __pycache__

@@ -7,6 +7,7 @@ import PIL
 import IPython
 import io
 import math
+import sys
 
 device = fresnel.Device(mode='cpu');
 tracer = fresnel.tracer.Direct(device, 300, 300)
@@ -33,13 +34,12 @@ def render_sphere_frame(frame, height=None):
     g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=numpy.ones(frame.particles.N)*0.5)
     g.material = fresnel.material.Material(solid=0.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=1.0)
     g.outline_width = 0.1
-    scene.camera = fresnel.camera.Orthographic(position=(height, height, height), look_at=(0,0,0), up=(0,1,0), height=height)
+    scene.camera = fresnel.camera.orthographic(position=(height, height, height), look_at=(0,0,0), up=(0,1,0), height=height)
 
     g.color[frame.particles.typeid == 0] = fresnel.color.linear([0.25,0.5,1])
     g.color[frame.particles.typeid == 1] = fresnel.color.linear([1.0,0.714,0.169])
 
     scene.background_color = (1,1,1)
-    scene.light_direction = (4,3,0)
 
     return tracer.render(scene)
 
@@ -55,7 +55,7 @@ def render_disk_frame(frame, Ly=None):
     g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=frame.particles.diameter*0.5)
     g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=1.0)
     g.outline_width = 0.05
-    scene.camera = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
+    scene.camera = fresnel.camera.orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
 
     g.color[frame.particles.typeid == 0] = fresnel.color.linear([0.25,0.5,1])
     g.color[frame.particles.typeid == 1] = fresnel.color.linear([1.0,0.714,0.169])
@@ -77,7 +77,7 @@ def render_polygon_frame(frame, verts, Ly=None):
     g = fresnel.geometry.Prism(scene, vertices=verts, position=frame.particles.position[:,0:2], angle=ang, height=numpy.ones(frame.particles.N)*0.5)
     g.outline_width = 0.05
     g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]))
-    scene.camera = fresnel.camera.Orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
+    scene.camera = fresnel.camera.orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
     scene.background_color = (1,1,1)
 
     return tracer.render(scene)
@@ -99,7 +99,8 @@ def display_movie(frame_gen, gsd_file):
     f = io.BytesIO()
     im0.save(f, 'gif', save_all=True, append_images=ims, duration=1000, loop=0)
 
-    size = len(f.getbuffer())/1024;
-    if (size > 1000):
-        print("Size:", size, "KiB")
+    if (sys.version_info[0] >= 3):
+        size = len(f.getbuffer())/1024;
+        if (size > 1000):
+            print("Size:", size, "KiB")
     return IPython.display.display(IPython.display.Image(data=f.getvalue()))
