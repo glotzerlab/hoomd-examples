@@ -88,6 +88,10 @@ def display_movie(frame_gen, gsd_file):
 
     a = frame_gen(t[0]);
 
+    if tuple(map(int, (PIL.__version__.split(".")))) < (3,4,0):
+        print("Warning! Movie display output requires pillow 3.4.0 or newer.")
+        print("Older versions of pillow may only display the first frame.")
+
     im0 = PIL.Image.fromarray(a[:,:, 0:3], mode='RGB').convert("P", palette=PIL.Image.ADAPTIVE);
     ims = [];
     for f in t[1:]:
