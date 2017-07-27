@@ -10,7 +10,11 @@ import math
 import sys
 
 device = fresnel.Device(mode='cpu');
-tracer = fresnel.tracer.Direct(device, 300, 300)
+preview_tracer = fresnel.tracer.Preview(device, 300, 300, aa_level=3)
+path_tracer = fresnel.tracer.Path(device, 300, 300)
+
+blue = fresnel.color.linear([0.25,0.5,1])*0.9;
+orange = fresnel.color.linear([1.0,0.714,0.169])*0.9
 
 def render_disks(gsd_file):
     global device;
@@ -31,17 +35,18 @@ def render_sphere_frame(frame, height=None):
             height = Ly * math.sqrt(3)
 
     scene = fresnel.Scene(device)
+    scene.lights = fresnel.light.cloudy();
     g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=numpy.ones(frame.particles.N)*0.5)
-    g.material = fresnel.material.Material(solid=0.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=1.0)
-    g.outline_width = 0.1
+    g.material = fresnel.material.Material(solid=0.0, color=blue, primitive_color_mix=1.0, specular=1.0, roughness=0.2)
+    g.outline_width = 0.07
     scene.camera = fresnel.camera.orthographic(position=(height, height, height), look_at=(0,0,0), up=(0,1,0), height=height)
 
-    g.color[frame.particles.typeid == 0] = fresnel.color.linear([0.25,0.5,1])
-    g.color[frame.particles.typeid == 1] = fresnel.color.linear([1.0,0.714,0.169])
+    g.color[frame.particles.typeid == 0] = blue;
+    g.color[frame.particles.typeid == 1] = orange;
 
     scene.background_color = (1,1,1)
 
-    return tracer.render(scene)
+    return path_tracer.sample(scene, samples=64, light_samples=20)
 
 def render_disk_frame(frame, Ly=None):
 
@@ -53,16 +58,16 @@ def render_disk_frame(frame, Ly=None):
 
     scene = fresnel.Scene(device)
     g = fresnel.geometry.Sphere(scene, position=frame.particles.position, radius=frame.particles.diameter*0.5)
-    g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]), primitive_color_mix=1.0)
-    g.outline_width = 0.05
+    g.material = fresnel.material.Material(solid=1.0, color=blue, primitive_color_mix=1.0)
+    g.outline_width = 0.1
     scene.camera = fresnel.camera.orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
 
-    g.color[frame.particles.typeid == 0] = fresnel.color.linear([0.25,0.5,1])
-    g.color[frame.particles.typeid == 1] = fresnel.color.linear([1.0,0.714,0.169])
+    g.color[frame.particles.typeid == 0] = blue;
+    g.color[frame.particles.typeid == 1] = orange;
 
     scene.background_color = (1,1,1)
 
-    return tracer.render(scene)
+    return preview_tracer.render(scene)
 
 def render_polygon_frame(frame, verts, Ly=None):
 
@@ -75,12 +80,12 @@ def render_polygon_frame(frame, verts, Ly=None):
     scene = fresnel.Scene(device)
     ang = numpy.arctan2(frame.particles.orientation[:,3], frame.particles.orientation[:,0])*2
     g = fresnel.geometry.Prism(scene, vertices=verts, position=frame.particles.position[:,0:2], angle=ang, height=numpy.ones(frame.particles.N)*0.5)
-    g.outline_width = 0.05
-    g.material = fresnel.material.Material(solid=1.0, color=fresnel.color.linear([0.25,0.5,1]))
+    g.outline_width = 0.1
+    g.material = fresnel.material.Material(solid=1.0, color=blue)
     scene.camera = fresnel.camera.orthographic(position=(0, 0, 10), look_at=(0,0,0), up=(0,1,0), height=Ly)
     scene.background_color = (1,1,1)
 
-    return tracer.render(scene)
+    return preview_tracer.render(scene)
 
 def display_movie(frame_gen, gsd_file):
     f = gsd.fl.GSDFile(gsd_file, 'rb')
@@ -105,6 +110,6 @@ def display_movie(frame_gen, gsd_file):
 
     if (sys.version_info[0] >= 3):
         size = len(f.getbuffer())/1024;
-        if (size > 1000):
+        if (size > 2000):
             print("Size:", size, "KiB")
     return IPython.display.display(IPython.display.Image(data=f.getvalue()))
