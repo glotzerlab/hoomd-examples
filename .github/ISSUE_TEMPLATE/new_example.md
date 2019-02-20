@@ -1,6 +1,6 @@
 ---
 name: New example
-about: Suggest a new example script for hoomd-examples
+about: Suggest a new HOOMD example script
 title: ''
 labels: 'enhancement'
 assignees: ''
