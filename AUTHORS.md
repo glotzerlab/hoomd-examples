@@ -1,1 +1,6 @@
-Joshua A. Anderson - University of Michigan
+# hoomd-examples authors
+
+* Joshua A. Anderson - University of Michigan
+* Isaac Bruss - University of Michigan
+* Bradley Dice - University of Michigan
+
