@@ -1,7 +1,8 @@
 ## Description
-<!-- Describe your changes in detail -->
 
-<!-- Replace ??? with the issue number that this pull requests resolves -->
+<!-- Describe your changes in detail. -->
+
+<!-- Replace ??? with the issue number that this pull request resolves. -->
 Resolves: #???
 
 ## Checklist:
