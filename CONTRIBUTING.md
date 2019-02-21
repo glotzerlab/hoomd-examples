@@ -3,7 +3,7 @@
 ## New examples
 
 Contributions are welcomed via [pull requests on GitHub](https://github.com/glotzerlab/hoomd-examples/pulls).
-Prior to writing a new example, please review the [examples outline](OUTLINE.md) and determine where your example best fits.
+Prior to writing a new example, please review the [examples outline](README.md) and determine where your example best fits.
 We encourage you to [propose your new example in an issue](https://github.com/glotzerlab/hoomd-examples/issues/new?assignees=&labels=&template=new_example.md&title=)
 and discuss your plans with the HOOMD developer community to ensure that the planned development meshes well with the directions and standards of the project.
 Follow the general guidelines outlined below when writing your example.
@@ -37,11 +37,11 @@ building documentation, so the committed output is exactly what the user will se
 
 ### Name notebook files appropriately
 
-Notebook files should be named like `0000-Example-Title.ipynb`. Use `-` instead of spaces. The four digit code should be
-unique and chosen so that the example appears in the correct place in lexicographical order. Specifically, the first
-digit is the section number, the second digit is the subsection, and the last two are the example number within the
-subsection. See the [examples outline](OUTLINE.md) for context.
+
+Notebook files should be named like `00-Example-Title.ipynb` and placed in the appropriate (sub-)section directory.
+Use `-` instead of spaces. The leading digits should be chosen so that the example appears in the correct place in
+lexicographical order. See the [examples outline](README.md) for the outline of current examples.
 
 ### List examples in the outline
 
-Add new examples to the [examples outline](OUTLINE.md).
+Add new examples to the [examples outline](README.md).
