@@ -15,7 +15,7 @@ assignees: ''
 
 ## Section
 
-<!--  Where does the new example fit in the [outline](OUTLINE.md)? -->
+<!--  Where does the new example fit in the [outline](README.md)? -->
 
 ## DOI (if applicable)
 
