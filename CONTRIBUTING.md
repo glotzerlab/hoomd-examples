@@ -37,10 +37,9 @@ building documentation, so the committed output is exactly what the user will se
 
 ### Name notebook files appropriately
 
-
 Notebook files should be named like `00-Example-Title.ipynb` and placed in the appropriate (sub-)section directory.
 Use `-` instead of spaces. The leading digits should be chosen so that the example appears in the correct place in
-lexicographical order. See the [examples outline](README.md) for the outline of current examples.
+the order displayed by ls, github, and jupyter. See the [examples outline](README.md) for the outline of current examples.
 
 ### List examples in the outline
 
