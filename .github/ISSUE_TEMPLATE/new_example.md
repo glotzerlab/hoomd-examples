@@ -11,7 +11,7 @@ assignees: ''
 
 ## Example description
 
-<!-- A description of the proposed example script. -->
+<!-- Describe the proposed example script. -->
 
 ## Section
 
