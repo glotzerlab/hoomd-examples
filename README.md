@@ -33,7 +33,10 @@ descriptions and a link to the research paper.
 
 A how-to guide demonstrates a specific HOOMD feature as succinctly as possible with brief explanations.
 
-* TODO: Populate
+* [General](02-Guides/00-General)
+* [Monte Carlo](02-Guides/01-Monte-Carlo)
+* [Molecular Dynamics](02-Guides/02-Molecular-dynamics)
+* [Tabulated pair potentials](02-Guides/02-Molecular-dynamics/20-Tabulated-pair-potentials.ipynb)
 
 ### External tools
 
