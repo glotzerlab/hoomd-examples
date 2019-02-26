@@ -11,15 +11,16 @@ a future version of [HOOMD-blue's documentation](http://hoomd-blue.readthedocs.i
 Basic tutorials introduce the user to the essential elements of a HOOMD simulation via short examples with extended descriptions. Later example scripts may assume that the user is familiar with these concepts and do not to re-introduce
 them.
 
-* [Executing scripts on the command line](00-Basic-tutorials/00-Executing-scripts-on-the-command-line.ipynb)
-* [Introducing contexts](00-Basic-tutorials/01-Introducing-contexts.ipynb)
-* [Specifying the initial condition](00-Basic-tutorials/02-Specifying-the-initial-condition.ipynb)
-* [MD simulations](00-Basic-tutorials/03-MD-simulations.ipynb)
-* [HPMC simulations](00-Basic-tutorials/04-HPMC-simulations.ipynb)
-* [Log file output](00-Basic-tutorials/04-Log-file-output.ipynb)
-* [Trajectory output](00-Basic-tutorials/05-Trajectory-output.ipynb)
-* [Saving trajectory metadata](00-Basic-tutorials/06-Saving-trajectory-metadata.ipynb)
-* [Visualizing trajectories](00-Basic-tutorials/08-Visualizing-trajectories.ipynb)
+* [Introduction](00-Basic-tutorials/00-Introduction.ipynb)
+* [Executing scripts](00-Basic-tutorials/01-Executing-scripts.ipynb)
+* [Introducing contexts](00-Basic-tutorials/02-Introducing-contexts.ipynb)
+* [Specifying the initial condition](03-Basic-tutorials/02-Specifying-the-initial-condition.ipynb)
+* [MD simulations](00-Basic-tutorials/04-MD-simulations.ipynb)
+* [HPMC simulations](00-Basic-tutorials/05-HPMC-simulations.ipynb)
+* [Log file output](00-Basic-tutorials/06-Log-file-output.ipynb)
+* [Trajectory output](00-Basic-tutorials/07-Trajectory-output.ipynb)
+* [Saving trajectory metadata](00-Basic-tutorials/08-Saving-trajectory-metadata.ipynb)
+* [Visualizing trajectories](00-Basic-tutorials/09-Visualizing-trajectories.ipynb)
 
 ### Research examples
 
