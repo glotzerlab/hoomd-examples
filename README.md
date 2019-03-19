@@ -14,7 +14,7 @@ them.
 * [Introduction](00-Basic-tutorials/00-Introduction.ipynb)
 * [Executing scripts](00-Basic-tutorials/01-Executing-scripts.ipynb)
 * [Introducing contexts](00-Basic-tutorials/02-Introducing-contexts.ipynb)
-* [Specifying the initial condition](03-Basic-tutorials/02-Specifying-the-initial-condition.ipynb)
+* [Specifying the initial condition](00-Basic-tutorials/02-Specifying-the-initial-condition.ipynb)
 * [MD simulations](00-Basic-tutorials/04-MD-simulations.ipynb)
 * [HPMC simulations](00-Basic-tutorials/05-HPMC-simulations.ipynb)
 * [Log file output](00-Basic-tutorials/06-Log-file-output.ipynb)
@@ -27,7 +27,7 @@ them.
 Examples demonstrate research-relevant use cases of HOOMD with simple, easy-to-understand code, along with extensive
 descriptions and a link to the research paper.
 
-* [Active rotation](01-Research-examples/00-Active-rotation.ipynb)
+<!-- * [Placeholder](01-Research-examples/00-Placeholder.ipynb) -->
 
 ### Guides
 
@@ -36,13 +36,6 @@ A how-to guide demonstrates a specific HOOMD feature as succinctly as possible w
 * [General](02-Guides/00-General)
 * [Monte Carlo](02-Guides/01-Monte-Carlo)
 * [Molecular Dynamics](02-Guides/02-Molecular-dynamics)
-* [Tabulated pair potentials](02-Guides/02-Molecular-dynamics/20-Tabulated-pair-potentials.ipynb)
-
-### External tools
-
-Guides that demonstrate how to use HOOMD-blue in conjunction with other tools.
-
-* TODO: Populate
 
 ## Executing the examples
 You can [install HOOMD-blue](https://hoomd-blue.readthedocs.io) and run these examples
@@ -84,9 +77,11 @@ Clone the **hoomd-examples** repository.
 ▶ cd hoomd-examples
 ```
 
-The image contains all software needed to execute these notebooks. Use singularity to launch the container:
+The [glotzerlab-software](https://glotzerlab-software.readthedocs.io) image contains all software needed to execute
+these notebooks. Pull the image, then use singularity to launch the container:
 
 ```bash
+▶ singularity pull --name "software.simg" shub://glotzerlab/software
 ▶ singularity exec -B $XDG_RUNTIME_DIR software.simg jupyter notebook
 ```
 
@@ -106,8 +101,8 @@ container accesses the configuration in your home directory on the host system. 
 
 ### Docker container
 
-The **glotzerlab/software** image contains all software needed to execute these notebooks and a copy of the notebooks
-themselves in ``/hoomd-examples``. Run this command to start **jupyter**:
+The [glotzerlab-software](https://glotzerlab-software.readthedocs.io) image contains all software needed to execute
+these notebooks and a copy of the notebooks themselves in ``/hoomd-examples``. Run this command to start **jupyter**:
 
 ```bash
 ▶ docker run --rm -p 127.0.0.1:9999:9999 glotzerlab/software jupyter notebook --port 9999 --ip 0.0.0.0 --no-browser /hoomd-examples
