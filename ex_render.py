@@ -19,8 +19,7 @@ orange = fresnel.color.linear([1.0,0.714,0.169])*0.9
 def render_disks(gsd_file):
     global device;
 
-    f = gsd.fl.GSDFile(gsd_file, 'rb')
-    t = gsd.hoomd.HOOMDTrajectory(f)
+    t = gsd.hoomd.open(gsd_file, 'rb')
 
     return render_disk_frame(t[-1])
 
@@ -88,8 +87,7 @@ def render_polygon_frame(frame, verts, Ly=None):
     return preview_tracer.render(scene)
 
 def display_movie(frame_gen, gsd_file):
-    f = gsd.fl.GSDFile(gsd_file, 'rb')
-    t = gsd.hoomd.HOOMDTrajectory(f)
+    t = gsd.hoomd.open(gsd_file, 'rb')
 
     a = frame_gen(t[0]);
 
