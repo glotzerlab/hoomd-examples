@@ -7,7 +7,7 @@ documentation](http://hoomd-blue.readthedocs.io).
 
 ## Tutorials
 
-* [Introducing HOOMD-blue](00-Introducing-HOOMD-blue)
+* [Introducing HOOMD-blue](00-Introducing-HOOMD-blue/index.ipynb)
 
 ## Executing the examples
 
