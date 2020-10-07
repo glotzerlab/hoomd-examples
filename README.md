@@ -8,6 +8,7 @@ documentation](http://hoomd-blue.readthedocs.io).
 ## Tutorials
 
 * [Introducing HOOMD-blue](00-Introducing-HOOMD-blue/index.ipynb)
+* [Introducing Molecular Dynamics](01-Introducing-Molecular-Dynamics/index.ipynb)
 
 ## Executing the examples
 
