@@ -1,0 +1,36 @@
+trigger: none
+
+pr:
+  - v3-api
+
+schedules:
+- cron: "0 2 * * *"
+  displayName: Daily 10PM build
+  # 2am UTC is 10PM eastern time
+  branches:
+    include:
+    - "*"
+
+variables:
+  image_root: glotzerlab/ci:2021.01
+
+jobs:
+- job: notebooks
+  displayName: Run notebooks
+  timeoutInMinutes: 75
+  variables:
+    enable_gpu: on
+
+  pool:
+    name: 'GPU'
+    demands: short_jobs
+
+  container:
+      image: $(image_root)-cuda11_gcc9_py38
+      options: -u 0 --gpus=all --cpus=4 --memory=16g -e CUDA_VISIBLE_DEVICES
+
+  workspace:
+    clean: all
+
+  steps:
+  - template: templates/build_hoomd.yml
