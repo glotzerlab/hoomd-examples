@@ -1,25 +1,23 @@
-trigger: none
+# trigger: none
 
-pr:
-  - v3-api
+# pr:
+#   - v3-api
 
-schedules:
-- cron: "0 2 * * *"
-  displayName: Daily 10PM build
-  # 2am UTC is 10PM eastern time
-  branches:
-    include:
-    - "*"
+# schedules:
+# - cron: "0 2 * * *"
+#   displayName: Daily 10PM build
+#   # 2am UTC is 10PM eastern time
+#   branches:
+#     include:
+#     - "*"
 
 variables:
   image_root: glotzerlab/ci:2021.01
 
 jobs:
 - job: notebooks
-  displayName: Run notebooks
-  timeoutInMinutes: 75
-  variables:
-    enable_gpu: on
+  displayName: Execute notebooks
+  timeoutInMinutes: 360
 
   pool:
     name: 'GPU'
@@ -33,4 +31,11 @@ jobs:
     clean: all
 
   steps:
+  - template: templates/build_fresnel.yml
   - template: templates/build_hoomd.yml
+  - script: jupyter nbconvert --execute --inplace **/*.ipynb
+    displayName: Execute notebooks
+    workingDirectory: $(Build.SourcesDirectory)
+    env:
+      PYTHONPATH: $(Pipeline.Workspace)/hoomd/build:$(Pipeline.Workspace)/fresnel/build
+

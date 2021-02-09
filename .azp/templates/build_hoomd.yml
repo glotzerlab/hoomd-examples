@@ -1,6 +1,6 @@
 steps:
 - script: git clone --recursive https://github.com/glotzerlab/hoomd-blue $(Pipeline.Workspace)/hoomd
-  displayName: Compile
+  displayName: Clone hoomd
   workingDirectory: $(Pipeline.Workspace)
 
 - script: mkdir build
