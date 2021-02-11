@@ -1,0 +1,19 @@
+trigger: none
+
+pr: none
+
+schedules:
+- cron: "30 12 * * *"
+  displayName: Daily compatibility check
+  branches:
+    include:
+    - "*"
+    # - "v3-api" - testing all branches now, switch to only v3-api and (0 1 * * *) after merging
+  always: true
+
+variables:
+- template: variables/image.yml
+
+jobs:
+- template: jobs/execute_notebooks.yml
+

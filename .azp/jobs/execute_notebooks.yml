@@ -1,0 +1,22 @@
+jobs:
+- job: notebooks
+  displayName: Execute notebooks
+  timeoutInMinutes: 360
+
+  pool:
+    name: 'GPU'
+
+  container:
+      image: $(image_root)-nompi
+      options: -u 0 --gpus=all --cpus=4 --memory=16g -e CUDA_VISIBLE_DEVICES
+
+  workspace:
+    clean: all
+
+  steps:
+  - template: templates/build_hoomd.yml
+  - script: jupyter nbconvert --execute --inplace **/*.ipynb
+    displayName: Execute notebooks
+    workingDirectory: $(Build.SourcesDirectory)
+    env:
+      PYTHONPATH: $(Pipeline.Workspace)/hoomd/build
