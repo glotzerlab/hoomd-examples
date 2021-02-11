@@ -14,7 +14,7 @@ jobs:
     clean: all
 
   steps:
-  - template: templates/build_hoomd.yml
+  - template: steps/build_hoomd.yml
   - script: jupyter nbconvert --execute --inplace **/*.ipynb
     displayName: Execute notebooks
     workingDirectory: $(Build.SourcesDirectory)
