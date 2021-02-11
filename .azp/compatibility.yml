@@ -3,12 +3,11 @@ trigger: none
 pr: none
 
 schedules:
-- cron: "30 12 * * *"
+- cron: "0 1 * * *"
   displayName: Daily compatibility check
   branches:
     include:
-    - "*"
-    # - "v3-api" - testing all branches now, switch to only v3-api and (0 1 * * *) after merging
+    - "v3-api"
   always: true
 
 variables:
