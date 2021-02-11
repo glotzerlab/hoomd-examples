@@ -1,15 +1,21 @@
-# trigger: none
+trigger: none
 
-# pr:
-#   - v3-api
+pr:
+  - v3-api
 
-# schedules:
-# - cron: "0 2 * * *"
-#   displayName: Daily 10PM build
-#   # 2am UTC is 10PM eastern time
-#   branches:
-#     include:
-#     - "*"
+schedules:
+- cron: "0 2 * * *"
+  displayName: Daily 10PM build
+  # 2am UTC is 10PM eastern time
+  branches:
+    include:
+    - "*"
+- cron: "0 1 * * *"
+  displayName: Daily compatibility check
+  branches:
+    include:
+    - "v3-api"
+  always: true
 
 variables:
   image_root: glotzerlab/software:2021.01.15
@@ -21,7 +27,6 @@ jobs:
 
   pool:
     name: 'GPU'
-    demands: short_jobs
 
   container:
       image: $(image_root)-nompi
