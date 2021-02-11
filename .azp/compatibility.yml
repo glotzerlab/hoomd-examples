@@ -1,0 +1,18 @@
+trigger: none
+
+pr: none
+
+schedules:
+- cron: "0 1 * * *"
+  displayName: Daily compatibility check
+  branches:
+    include:
+    - "v3-api"
+  always: true
+
+variables:
+- template: variables/image.yml
+
+jobs:
+- template: jobs/execute_notebooks.yml
+

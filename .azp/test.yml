@@ -1,0 +1,18 @@
+trigger: none
+
+pr:
+  - v3-api
+
+schedules:
+- cron: "0 2 * * *"
+  displayName: Daily 10PM build
+  # 2am UTC is 10PM eastern time
+  branches:
+    include:
+    - "*"
+
+variables:
+- template: variables/image.yml
+
+jobs:
+- template: jobs/execute_notebooks.yml
