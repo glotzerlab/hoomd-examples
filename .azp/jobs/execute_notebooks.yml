@@ -4,11 +4,11 @@ jobs:
   timeoutInMinutes: 360
 
   pool:
-    name: 'GPU'
+    name: 'ubuntu-latest'
 
   container:
       image: $(image_root)-nompi
-      options: -u 0 --gpus=all --cpus=4 --memory=16g -e CUDA_VISIBLE_DEVICES
+      options: -u 0
 
   workspace:
     clean: all
