@@ -4,7 +4,7 @@ jobs:
   timeoutInMinutes: 360
 
   pool:
-    name: 'ubuntu-latest'
+    vmImage: 'ubuntu-latest'
 
   container:
       image: $(image_root)-nompi
