@@ -1,3 +1,9 @@
+parameters:
+- name: build_master
+  displayName: 'Build HOOMD master branch?'
+  type: boolean
+  default: false
+
 jobs:
 - job: notebooks
   displayName: Execute notebooks
@@ -14,7 +20,8 @@ jobs:
     clean: all
 
   steps:
-  - template: steps/build_hoomd.yml
+  - ${{ if eq(parameters.build_master, true) }}:
+    - template: steps/build_hoomd.yml
   - script: jupyter nbconvert --execute --inplace **/*.ipynb
     displayName: Execute notebooks
     workingDirectory: $(Build.SourcesDirectory)

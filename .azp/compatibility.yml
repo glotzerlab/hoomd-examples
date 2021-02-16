@@ -15,4 +15,6 @@ variables:
 
 jobs:
 - template: jobs/execute_notebooks.yml
+  parameters:
+      build_master: true
 
