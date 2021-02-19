@@ -15,6 +15,7 @@ variables:
 - template: variables/image.yml
 
 jobs:
+- template: jobs/pre_commit.yml
 - template: jobs/execute_notebooks.yml
   parameters:
       build_master: true
