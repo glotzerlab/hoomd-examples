@@ -27,6 +27,21 @@ guidelines outlined below when modifying examples.
 
 ## General guidelines
 
+### Code style
+
+Run the following commands to set up a pre-commit hook, using the tool [pre-commit](https://pre-commit.com/), that will ensure your code and documentation are compliant before committing:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+To run [pre-commit](https://pre-commit.com/) for all the files present in the repository, run the following command:
+
+```bash
+pre-commit run --all-files
+```
+
 ### Methodology
 
 Follow the the [software
