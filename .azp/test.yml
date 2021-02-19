@@ -14,8 +14,16 @@ schedules:
 variables:
 - template: variables/image.yml
 
+resources:
+  repositories:
+    - repository: asottile
+      type: github
+      endpoint: github
+      name: asottile/azure-pipeline-templates
+      ref: refs/tags/v2.1.0
+
 jobs:
-- template: jobs/pre_commit.yml
+- template: job--pre-commit.yml@asottile
 - template: jobs/execute_notebooks.yml
   parameters:
       build_master: true
