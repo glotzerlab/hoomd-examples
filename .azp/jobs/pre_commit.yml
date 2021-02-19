@@ -8,5 +8,3 @@ resources:
 
 jobs:
 - template: job--pre-commit.yml@asottile
-  parameters:
-    - python: "3.8"
