@@ -40,7 +40,7 @@ repos:
       - id: nbqa-isort
         args:
           - --nbqa-mutate
-      # This can replace the custom hook definition below when https://github.com/nbQA-dev/nbQA/pull/547 is released
+      # This can replace the local hook definition below when https://github.com/nbQA-dev/nbQA/pull/547 is released
       #- id: nbqa-yapf
       #  args:
       #    - --nbqa-mutate
@@ -56,7 +56,6 @@ repos:
     rev: b1203bb13ac55f2ba381530c17f7e56ff497f508
     hooks:
       - id: nb-strip-paths
-
   - repo: local
     hooks:
     - id: nbqa-yapf
