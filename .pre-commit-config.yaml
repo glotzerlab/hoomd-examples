@@ -17,10 +17,13 @@ repos:
     rev: '5.7.0'
     hooks:
       - id: isort
-  - repo: https://github.com/psf/black
-    rev: '20.8b1'
+  - repo: https://github.com/google/yapf
+    rev: 'a53e340c2ff24b36c98945c6f0374c6e21899afe'
     hooks:
-      - id: black
+      - id: yapf
+        args:
+          - --in-place
+          - --recursive
   - repo: https://gitlab.com/pycqa/flake8
     rev: '3.8.4'
     hooks:
