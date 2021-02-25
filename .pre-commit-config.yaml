@@ -40,9 +40,10 @@ repos:
       - id: nbqa-isort
         args:
           - --nbqa-mutate
-      - id: nbqa-black
-        args:
-          - --nbqa-mutate
+      # This can replace the custom hook definition below when https://github.com/nbQA-dev/nbQA/pull/547 is released
+      #- id: nbqa-yapf
+      #  args:
+      #    - --nbqa-mutate
   - repo: https://github.com/kynan/nbstripout
     rev: 0.3.9
     hooks:
@@ -55,3 +56,15 @@ repos:
     rev: b1203bb13ac55f2ba381530c17f7e56ff497f508
     hooks:
       - id: nb-strip-paths
+
+  - repo: local
+    hooks:
+    - id: nbqa-yapf
+      name: nbqa-yapf
+      description: "Run 'yapf' on a Jupyter Notebook"
+      entry: nbqa yapf --in-place --nbqa-mutate
+      language: python
+      language_version: python3
+      require_serial: true
+      types: [jupyter]
+      additional_dependencies: [nbqa, yapf]
