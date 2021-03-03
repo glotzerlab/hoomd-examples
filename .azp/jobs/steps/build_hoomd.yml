@@ -1,0 +1,24 @@
+steps:
+- script: git clone --recursive https://github.com/glotzerlab/hoomd-blue $(Pipeline.Workspace)/hoomd
+  displayName: Clone hoomd
+  workingDirectory: $(Pipeline.Workspace)
+
+- script: mkdir build
+  displayName: Make build directory
+  workingDirectory: $(Pipeline.Workspace)/hoomd
+
+- task: CMake@1
+  inputs:
+    cmakeArgs: >-
+      $(Pipeline.Workspace)/hoomd
+      -DCMAKE_BUILD_TYPE=Release
+      -DENABLE_GPU=on
+      -DENABLE_MPI=off
+      -DENABLE_TBB=off
+      -DBUILD_TESTING=off
+      -DBUILD_JIT=off
+    workingDirectory: $(Pipeline.Workspace)/hoomd/build
+
+- script: make -j 4
+  displayName: Compile
+  workingDirectory: $(Pipeline.Workspace)/hoomd/build
