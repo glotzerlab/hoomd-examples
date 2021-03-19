@@ -1,0 +1,19 @@
+steps:
+- script: git clone --recursive https://github.com/glotzerlab/fresnel $(Pipeline.Workspace)/fresnel
+  displayName: Clone fresnel
+  workingDirectory: $(Pipeline.Workspace)
+
+- script: mkdir build
+  displayName: Make build directory
+  workingDirectory: $(Pipeline.Workspace)/fresnel
+
+- task: CMake@1
+  inputs:
+    cmakeArgs: >-
+      $(Pipeline.Workspace)/fresnel
+      -DCMAKE_BUILD_TYPE=Release
+    workingDirectory: $(Pipeline.Workspace)/fresnel/build
+
+- script: make -j 4
+  displayName: Compile
+  workingDirectory: $(Pipeline.Workspace)/fresnel/build

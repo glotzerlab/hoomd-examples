@@ -22,8 +22,10 @@ jobs:
   steps:
   - ${{ if eq(parameters.build_master, true) }}:
     - template: steps/build_hoomd.yml
+  - ${{ if eq(parameters.build_master, true) }}:
+    - template: steps/build_fresnel.yml
   - script: jupyter nbconvert --execute --inplace **/*.ipynb
     displayName: Execute notebooks
     workingDirectory: $(Build.SourcesDirectory)
     env:
-      PYTHONPATH: $(Pipeline.Workspace)/hoomd/build
+      PYTHONPATH: $(Pipeline.Workspace)/hoomd/build:$(Pipeline.Workspace)/fresnel/build
