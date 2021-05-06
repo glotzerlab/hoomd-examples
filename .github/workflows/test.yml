@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: glotzerlab/software:beta-nompi
+      options: -u 0
     steps:
     - uses: actions/checkout@v2.3.4
       with:
