@@ -52,11 +52,10 @@ jobs:
         -DENABLE_TBB=off
         -DBUILD_TESTING=off
         -DBUILD_JIT=off
-        -GNinja
         ../
       working-directory: hoomd/build
     - name: Compile
-      run: ninja -j $(($(getconf _NPROCESSORS_ONLN) + 2))
+      run: make -j $(($(getconf _NPROCESSORS_ONLN) + 2))
       working-directory: hoomd/build
     - name: Display hoomd version
       run: python3 -c "import hoomd; print(hoomd.version.version, hoomd.version.git_sha1)"
