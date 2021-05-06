@@ -3,3 +3,5 @@
 
 # For changes to github settings and workflows, only assign maintainers
 /.github/ @glotzerlab/hoomd-maintainers
+
+.pre-commit-config.yaml @glotzerlab/hoomd-maintainers
