@@ -2,50 +2,38 @@
 
 ## New tutorials
 
-Contributions are welcomed via [pull requests on
-GitHub](https://github.com/glotzerlab/hoomd-examples/pulls). Prior to writing a
-new tutorial, please review the existing tutorials and the [software
-carptentries methodologies](https://carpentries.github.io/instructor-training/)
-plan the tutorial to reduce cognative load. Concept maps and outlines are
-extremely effective tools for this planning, you can find the outlines for some
-of the existing tutorials in the repository (TODO: link).
+Contributions are welcomed via [pull requests on GitHub]. Prior to writing a new tutorial, please
+review the existing tutorials and the [software carptentries methodologies]. Plan the tutorial to
+reduce cognative load. Concept maps and outlines are extremely effective tools for this planning,
+you can find the outlines for some of the existing tutorials in the repository.
 
-We encourage you to [propose your new example in an
-issue](https://github.com/glotzerlab/hoomd-examples/issues/new?assignees=&labels=&template=new_example.md&title=)
-and discuss your plans with the HOOMD developer community to ensure that the
-proposed tutorial meshes well with the directions and standards of the project.
-Follow the general guidelines outlined below when writing your example.
+[pull requests on GitHub]: https://github.com/glotzerlab/hoomd-examples/pulls
+[software carptentries methodologies]: https://carpentries.github.io/instructor-training/
+
+We encourage you to [propose your new example in an issue] and discuss your plans with the HOOMD
+developer community to ensure that the proposed tutorial meshes well with the directions and
+standards of the project. Follow the general guidelines outlined below when writing your example.
+
+[propose your new example in an issue]: https://github.com/glotzerlab/hoomd-examples/issues/new?assignees=&labels=&template=new_example.md&title=
 
 ## Changes to an existing example
 
-[File a GitHub
-issue](https://github.com/glotzerlab/hoomd-examples/issues/new?assignees=&labels=&template=bug_report.md&title=)
-to report problems with or suggest changes to an example. If you are able to
-implement the fix yourself, **please do so** and submit a [pull request on
-GitHub](https://github.com/glotzerlab/hoomd-examples/pulls). Follow the general
-guidelines outlined below when modifying examples.
+[File a GitHub issue] to report problems with or suggest changes to an example. If you are able to
+implement the fix yourself, **please do so** and submit a [pull request on GitHub]. Follow the
+general guidelines outlined below when modifying examples.
+
+[File a GitHub issue]: https://github.com/glotzerlab/hoomd-examples/issues/new?assignees=&labels=&template=bug_report.md&title=
 
 ## General guidelines
 
 ### Code style
 
-Run the following commands to set up a pre-commit hook, using the tool [pre-commit](https://pre-commit.com/), that will ensure your code and documentation are compliant before committing:
-
-```bash
-pip install pre-commit
-pre-commit install
-```
-
-To run [pre-commit](https://pre-commit.com/) for all the files present in the repository, run the following command:
-
-```bash
-pre-commit run --all-files
-```
+Code style is enforce by [pre-commit]. You can install [pre-commit] hooks so that it applies on
+every commit.
 
 ### Methodology
 
-Follow the the [software
-carptentries methodologies](https://carpentries.github.io/instructor-training/).
+Follow the the [software carptentries methodologies].
 
 Especially:
 
@@ -57,43 +45,42 @@ Especially:
 
 ### Jupyter notebooks
 
-Examples should be written as Jupyter notebooks with an appropriate mixture of
-code and explanatory Markdown cells.
+Examples should be written as Jupyter notebooks with an appropriate mixture of code and explanatory
+Markdown cells.
 
 ### Use a consistent style
 
-All examples should follow a consistent style. See the existing notebooks which
-demonstrate this style.
+All examples should follow a consistent style. See the existing notebooks which demonstrate this
+style.
 
 ### Keep the repository size reasonable
 
-Include notebook output in your commits, but keep the repository size
-reasonable. HOOMD does not re-run notebooks when building documentation, so the
-committed output is exactly what the user will see.
+Include notebook output in your commits, but keep the repository size reasonable. HOOMD does not
+re-run notebooks when building documentation, so the committed output is exactly what the user will
+see.
 
 * Only commit changes for notebooks that you materially change.
 * Captured output should be less than 2 MB per image.
-* Feel free to make as many commits as needed during the review process, your
-  pull request will be squash merged.
+* Feel free to make as many commits as needed during the review process, your pull request will be
+  squash merged.
 * Do not commit GSD files or other output files that the examples produce.
 
 ### Organize tutorials into sections
 
-This repository is organized as a list of tutorials, each in its own directory.
-Each tutorial consists of an ordered list of sections, each in its own notebook.
-Each section should be concise and introduce only a few new concepts.
-Consecutive sections should be ordered logically to teach all the concepts
-necessary for the tutorial's subject.
+This repository is organized as a list of tutorials, each in its own directory. Each tutorial
+consists of an ordered list of sections, each in its own notebook. Each section should be concise
+and introduce only a few new concepts. Consecutive sections should be ordered logically to teach all
+the concepts necessary for the tutorial's subject.
 
-Tutorials should list prequisite knowledge in the overview. A series of
-*Introduction* tutorials explain the core concepts of HOOMD and later tutorials
-should include one or more of these as a prerequisite.
+Tutorials should list prequisite knowledge in the overview. A series of *Introduction* tutorials
+explain the core concepts of HOOMD and later tutorials should include one or more of these as a
+prerequisite.
 
 ### Name notebook files appropriately
 
-The file naming scheme is `00-Tutorial-Title/00-Section-Title.ipynb` Use `-`
-instead of spaces. The leading digits should be chosen so that tutorials and
-sections are displayed in order by **ls**, **github**, and **jupyter**.
+The file naming scheme is `00-Tutorial-Title/00-Section-Title.ipynb` Use `-` instead of spaces. The
+leading digits should be chosen so that tutorials and sections are displayed in order by **ls**,
+**github**, and **jupyter**.
 
 ### List tutorials in the outline
 

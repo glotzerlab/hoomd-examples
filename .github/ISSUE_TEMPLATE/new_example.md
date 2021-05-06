@@ -17,10 +17,6 @@ assignees: ''
 
 <!--  Where does the new example fit in the [outline](README.md)? -->
 
-## DOI (if applicable)
-
-<!-- If this is a research relevant example, include the DOI of the paper this example should demonstrate. -->
-
 ## Author
 
 <!-- Are you able to write this example for the benefit of the HOOMD user community? -->
