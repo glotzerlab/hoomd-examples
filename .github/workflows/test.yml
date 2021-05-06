@@ -17,6 +17,11 @@ on:
   # Trigger on request.
   workflow_dispatch:
 
+  # Weekly builds on the master branch to check that the examples continue to work with the latest
+  # development version of HOOMD.
+  schedule:
+  - cron:  '0 10 * * 1'
+
 jobs:
   execute_notebooks:
     name: Execute notebooks
@@ -25,6 +30,35 @@ jobs:
       image: glotzerlab/software:beta-nompi
       options: -u 0
     steps:
+    # build the HOOMD master branch to test the tutorials on the latest version
+    - uses: actions/checkout@v2.3.4
+      with:
+        path: hoomd
+        repository: https://github.com/glotzerlab/hoomd-blue
+        submodules: true
+    - name: Make build directory
+      run: mkdir build
+      working-directory: hoomd
+    - name: Configure
+      run: >-
+        cmake
+        -DCMAKE_BUILD_TYPE=Release
+        -DENABLE_GPU=off
+        -DENABLE_MPI=off
+        -DENABLE_TBB=off
+        -DBUILD_TESTING=off
+        -DBUILD_JIT=off
+        -GNinja
+      working-directory: hoomd/build
+    - name: Compile
+      run: ninja -j $(($(getconf _NPROCESSORS_ONLN) + 2))
+      working-directory: hoomd/build
+    - name: Display hoomd version
+      run: python3 -c "import hoomd; print(hoomd.version.version, hoomd.version.git_sha1)"
+      env:
+        PYTHONPATH: ${{ github.workspace }}/hoomd/build
+
+    # clone the tutorials and run them
     - uses: actions/checkout@v2.3.4
       with:
         path: notebooks
@@ -36,3 +70,19 @@ jobs:
       working-directory: notebooks
       env:
         PYTHONPATH: ${{ github.workspace }}/hoomd/build
+
+    # notify developers if the scheduled check fails
+    - name: Slack notification
+      if: ${{ github.event_name == 'schedule' && (failure() || cancelled()) }}
+      uses: 8398a7/action-slack@v3.9.0
+      with:
+        status: ${{ job.status }}
+        fields: workflow,job,message,commit
+        mention: channel
+        if_mention: failure,cancelled
+        channel: '#dev-hoomd-notifications'
+        username: Github Action
+        author_name: ''
+        job_name: Execute notebooks
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
