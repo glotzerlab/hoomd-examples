@@ -31,11 +31,15 @@ jobs:
       options: -u 0
     steps:
     # build the HOOMD master branch to test the tutorials on the latest version
-    - uses: actions/checkout@v2.3.4
-      with:
-        path: hoomd
-        repository: glotzerlab/hoomd-blue
-        submodules: true
+    # - uses: actions/checkout@v2.3.4
+    #   with:
+    #     path: hoomd
+    #     repository: glotzerlab/hoomd-blue
+    #     submodules: true
+    # Using the action requires a newer version of git. Use the command line for now, switch
+    # when the glotzerlab-software container is updated to ubuntu 20.04
+    - name: Clone hoomd
+      run: git clone --recursive https://github.com/glotzerlab/hoomd-blue hoomd
     - name: Make build directory
       run: mkdir build
       working-directory: hoomd
