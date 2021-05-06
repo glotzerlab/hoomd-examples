@@ -7,6 +7,9 @@ repos:
       - id: trailing-whitespace
         exclude: 'setup.cfg'
       - id: debug-statements
+      - id: check-yaml
+      - id: check-case-conflict
+
   - repo: https://github.com/asottile/pyupgrade
     rev: 'v2.10.0'
     hooks:
