@@ -1,22 +1,22 @@
 ---
-name: New example
-about: Suggest a new HOOMD example script
+name: New tutorial
+about: Suggest a new HOOMD-blue tutorial
 title: ''
 labels: 'enhancement'
 assignees: ''
 
 ---
 
-<!-- Set the title of this issue to the name of the proposed example script. -->
+<!-- Set the title of this issue to the name of the proposed tutorial. -->
 
-## Example description
+## Tutorial description
 
-<!-- Describe the proposed example script. -->
+<!-- Describe the proposed tutorial. -->
 
 ## Section
 
-<!--  Where does the new example fit in the [outline](README.md)? -->
+<!--  Where does the new tutorial fit in the [outline](README.md)? -->
 
 ## Author
 
-<!-- Are you able to write this example for the benefit of the HOOMD user community? -->
+<!-- Are you able to write this tutorial for the benefit of the HOOMD user community? -->
