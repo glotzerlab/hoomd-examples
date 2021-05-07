@@ -11,6 +11,9 @@
             "conda",
             "ipynb",
             "jupyter"
+        ],
+        "editor.rulers": [
+        100
         ]
     }
 }

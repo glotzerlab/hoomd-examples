@@ -7,31 +7,31 @@ repos:
       - id: trailing-whitespace
         exclude: 'setup.cfg'
       - id: debug-statements
+      - id: check-yaml
+      - id: check-case-conflict
+
   - repo: https://github.com/asottile/pyupgrade
-    rev: 'v2.10.0'
+    rev: 'v2.14.0'
     hooks:
       - id: pyupgrade
         args:
           - --py36-plus
   - repo: https://github.com/pycqa/isort
-    rev: '5.7.0'
+    rev: '5.8.0'
     hooks:
       - id: isort
   - repo: https://github.com/google/yapf
-    rev: 'a53e340c2ff24b36c98945c6f0374c6e21899afe'
+    rev: 'v0.31.0'
     hooks:
       - id: yapf
-        args:
-          - --in-place
-          - --recursive
   - repo: https://gitlab.com/pycqa/flake8
-    rev: '3.8.4'
+    rev: '3.9.1'
     hooks:
       - id: flake8
         args:
           - --max-line-length=100
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 0.5.7
+    rev: 0.8.0
     hooks:
       - id: nbqa-pyupgrade
         args:
@@ -40,12 +40,11 @@ repos:
       - id: nbqa-isort
         args:
           - --nbqa-mutate
-      # This can replace the local hook definition below when https://github.com/nbQA-dev/nbQA/pull/547 is released
-      #- id: nbqa-yapf
-      #  args:
-      #    - --nbqa-mutate
+      - id: nbqa-yapf
+        args:
+          - --nbqa-mutate
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.3.9
+    rev: 0.4.0
     hooks:
       - id: nbstripout
         args:
@@ -53,17 +52,6 @@ repos:
           - --keep-count
           - --keep-output
   - repo: https://github.com/bdice/nb-strip-paths
-    rev: b1203bb13ac55f2ba381530c17f7e56ff497f508
+    rev: v0.1.0
     hooks:
       - id: nb-strip-paths
-  - repo: local
-    hooks:
-    - id: nbqa-yapf
-      name: nbqa-yapf
-      description: "Run 'yapf' on a Jupyter Notebook"
-      entry: nbqa yapf --in-place --nbqa-mutate
-      language: python
-      language_version: python3
-      require_serial: true
-      types: [jupyter]
-      additional_dependencies: [nbqa, yapf]
