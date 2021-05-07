@@ -1,0 +1,19 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "cSpell.words": [
+            "Bruss",
+            "HOOMD",
+            "conda",
+            "ipynb",
+            "jupyter"
+        ],
+        "editor.rulers": [
+        100
+        ]
+    }
+}
