@@ -1,7 +1,7 @@
 name: Test
 
 concurrency:
-  group: unit_test-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
@@ -20,7 +20,7 @@ on:
   # Weekly builds on the master branch to check that the examples continue to work with the latest
   # development version of HOOMD.
   schedule:
-  - cron:  '0 10 * * 1'
+  - cron:  '0 18 * * 1'
 
 jobs:
   execute_notebooks:
@@ -77,7 +77,7 @@ jobs:
 
     # notify developers if the scheduled check fails
     - name: Slack notification
-      if: ${{ github.event_name == 'schedule' && (failure() || cancelled()) }}
+      # if: ${{ github.event_name == 'schedule' && (failure() || cancelled()) }}
       uses: 8398a7/action-slack@v3.9.0
       with:
         status: ${{ job.status }}
