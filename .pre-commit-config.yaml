@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 'v3.4.0'
+    rev: 'v4.0.1'
     hooks:
       - id: end-of-file-fixer
         exclude: 'setup.cfg'
@@ -11,7 +11,7 @@ repos:
       - id: check-case-conflict
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: 'v2.15.0'
+    rev: 'v2.16.0'
     hooks:
       - id: pyupgrade
         args:
@@ -31,7 +31,7 @@ repos:
         args:
           - --max-line-length=100
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 0.8.0
+    rev: 0.8.1
     hooks:
       - id: nbqa-pyupgrade
         args:
