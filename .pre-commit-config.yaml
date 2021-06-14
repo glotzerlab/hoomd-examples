@@ -11,7 +11,7 @@ repos:
       - id: check-case-conflict
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: 'v2.19.1'
+    rev: 'v2.19.4'
     hooks:
       - id: pyupgrade
         args:
@@ -31,7 +31,7 @@ repos:
         args:
           - --max-line-length=100
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 0.11.1
+    rev: 0.12.0
     hooks:
       - id: nbqa-pyupgrade
         args:
