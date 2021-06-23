@@ -1,3 +1,6 @@
+ci:
+  autoupdate_schedule: quarterly
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 'v4.0.1'
@@ -9,14 +12,13 @@ repos:
       - id: debug-statements
       - id: check-yaml
       - id: check-case-conflict
-
   - repo: https://github.com/asottile/pyupgrade
     rev: 'v2.19.4'
     hooks:
       - id: pyupgrade
         args:
           - --py36-plus
-  - repo: https://github.com/pycqa/isort
+  - repo: https://github.com/PyCQA/isort
     rev: '5.9.1'
     hooks:
       - id: isort
