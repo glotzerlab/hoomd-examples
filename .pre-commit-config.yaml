@@ -33,7 +33,7 @@ repos:
         args:
           - --max-line-length=100
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 0.13.0
+    rev: 0.13.1
     hooks:
       - id: nbqa-pyupgrade
         args:
