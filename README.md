@@ -39,7 +39,7 @@ These examples use the following python packages:
 * [matplotlib](http://matplotlib.org/)
 * [pillow](https://python-pillow.org/)
 
-Anaconda users can install these from [conda-forge](https://conda-forge.org/):
+Conda users can install these from [conda-forge](https://conda-forge.org/):
 
 ```bash
 conda install -c conda-forge fresnel freud  gsd hoomd jupyterlab matplotlib
