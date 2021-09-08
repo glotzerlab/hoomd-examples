@@ -9,9 +9,11 @@ included in HOOMD-blue's [documentation].
 
 ## Outline
 
-* [Introducing HOOMD-blue](00-Introducing-HOOMD-blue/index.ipynb)
-* [Introducing Molecular Dynamics](01-Introducing-Molecular-Dynamics/index.ipynb)
-* [Logging](02-Logging/index.ipynb)
+* [Introducing HOOMD-blue](00-Introducing-HOOMD-blue/00-index.ipynb)
+* [Introducing Molecular Dynamics](01-Introducing-Molecular-Dynamics/00-index.ipynb)
+* [Logging](02-Logging/00-index.ipynb)
+* [Parallel Simulations With MPI](03-Parallel-Simulations-With-MPI/00-index.ipynb)
+* [Custom Actions In Python](04-Custom-Actions-In-Python/00-index.ipynb)
 
 ## Executing the tutorials
 
