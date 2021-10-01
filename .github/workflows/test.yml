@@ -78,7 +78,7 @@ jobs:
     # notify developers if the scheduled check fails
     - name: Slack notification
       if: ${{ github.event_name == 'schedule' && (failure() || cancelled()) }}
-      uses: 8398a7/action-slack@v3.9.2
+      uses: 8398a7/action-slack@v3.10.0
       with:
         status: ${{ job.status }}
         fields: workflow,job,message,commit
