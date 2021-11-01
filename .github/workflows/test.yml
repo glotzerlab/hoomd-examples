@@ -31,7 +31,7 @@ jobs:
       options: -u 0
     steps:
     # build the HOOMD master branch to test the tutorials on the latest version
-    # - uses: actions/checkout@v2.3.4
+    # - uses: actions/checkout@v2.3.5
     #   with:
     #     path: hoomd
     #     repository: glotzerlab/hoomd-blue
@@ -63,7 +63,7 @@ jobs:
         PYTHONPATH: ${{ github.workspace }}/hoomd/build
 
     # clone the tutorials and run them
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v2.3.5
       with:
         path: notebooks
     - name: List notebooks
