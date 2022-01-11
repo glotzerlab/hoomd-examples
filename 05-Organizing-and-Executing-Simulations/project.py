@@ -2,7 +2,6 @@ import math
 
 import flow
 import hoomd
-import signac
 
 N_EQUIL_STEPS = 200000
 WALLTIME_LIMIT = 50 * 60

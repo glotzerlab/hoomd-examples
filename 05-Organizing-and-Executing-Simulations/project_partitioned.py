@@ -2,7 +2,6 @@ import math
 
 import flow
 import hoomd
-import signac
 
 RANKS_PER_PARTITION = 2
 JOBS_PER_AGGREGATE = 3
