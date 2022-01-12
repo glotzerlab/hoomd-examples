@@ -37,14 +37,9 @@ repos:
     hooks:
       - id: nbqa-pyupgrade
         args:
-          - --nbqa-mutate
           - --py36-plus
       - id: nbqa-isort
-        args:
-          - --nbqa-mutate
       - id: nbqa-yapf
-        args:
-          - --nbqa-mutate
   - repo: https://github.com/kynan/nbstripout
     rev: 0.5.0
     hooks:
