@@ -26,9 +26,13 @@ def create_simulation(job, communicator):
     return sim
 
 
-@flow.FlowProject.operation
-@flow.FlowProject.pre(lambda job: job.document.get('initialized', False))
-@flow.FlowProject.post(lambda job: job.document.get('randomized', False))
+class Project(flow.FlowProject):
+    pass
+
+
+@Project.operation
+@Project.pre.true('initialized')
+@Project.post.true('randomized')
 def randomize(job):
     sim = create_simulation(job)
     sim.create_state_from_gsd(filename=job.fn('lattice.gsd'))
@@ -39,9 +43,9 @@ def randomize(job):
     job.document['randomized'] = True
 
 
-@flow.FlowProject.operation
-@flow.FlowProject.pre.after(randomize)
-@flow.FlowProject.post(lambda job: 'compressed_step' in job.document)
+@Project.operation
+@Project.pre.after(randomize)
+@Project.post.true('compressed_step')
 def compress(job):
     sim = create_simulation(job)
     sim.create_state_from_gsd(filename=job.fn('random.gsd'))
@@ -82,11 +86,10 @@ def equilibrated(job):
         'timestep', 0) - job.document['compressed_step'] >= N_EQUIL_STEPS
 
 
+@Project.operation
 @flow.aggregator.groupsof(num=JOBS_PER_AGGREGATE)
-@flow.FlowProject.operation
-@flow.FlowProject.pre(
-    lambda *jobs: all('compressed_step' in job.document for job in jobs))
-@flow.FlowProject.post(lambda *jobs: all(equilibrated(job) for job in jobs))
+@Project.pre.true('compressed_step')
+@Project.post(lambda *jobs: all(equilibrated(job) for job in jobs))
 @flow.directives(nranks=lambda *jobs: RANKS_PER_PARTITION * len(jobs),
                  walltime=1)
 def equilibrate(*jobs):
@@ -143,4 +146,4 @@ def equilibrate(*jobs):
 
 
 if __name__ == '__main__':
-    flow.FlowProject().main()
+    Project().main()
