@@ -125,7 +125,7 @@ def equilibrate(*jobs):
 
     try:
         while sim.timestep < end_step:
-            sim.run(min(10_000, end_step - sim.timestep))
+            sim.run(min(100_000, end_step - sim.timestep))
 
             if (sim.device.communicator.walltime + sim.walltime >=
                     WALLTIME_LIMIT):
