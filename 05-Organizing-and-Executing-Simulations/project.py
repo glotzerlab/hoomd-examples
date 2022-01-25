@@ -3,8 +3,11 @@ import math
 import flow
 import hoomd
 
+# parameters
+N_RANKS = 2
 N_EQUIL_STEPS = 200000
-WALLTIME_LIMIT = 50 * 60
+CLUSTER_JOB_WALLTIME = 1
+HOOMD_RUN_WALLTIME_LIMIT = CLUSTER_JOB_WALLTIME * 3600 - 10 * 60
 
 
 def create_simulation(job):
@@ -83,7 +86,8 @@ def compress(job):
 @Project.pre.after(compress)
 @Project.post(lambda job: job.document.get('timestep', 0) - job.document[
     'compressed_step'] >= N_EQUIL_STEPS)
-@flow.directives(nranks=1, walltime=1)
+# Cluster job directives.
+@flow.directives(nranks=N_RANKS, walltime=CLUSTER_JOB_WALLTIME)
 def equilibrate(job):
     end_step = job.document['compressed_step'] + N_EQUIL_STEPS
 
@@ -116,7 +120,7 @@ def equilibrate(job):
             sim.run(min(100_000, end_step - sim.timestep))
 
             if (sim.device.communicator.walltime + sim.walltime >=
-                    WALLTIME_LIMIT):
+                    HOOMD_RUN_WALLTIME_LIMIT):
                 break
     finally:
         hoomd.write.GSD.write(state=sim.state,
@@ -133,5 +137,6 @@ def equilibrate(job):
                   f'after {walltime} seconds')
 
 
+# Entrypoint.
 if __name__ == '__main__':
     Project().main()
