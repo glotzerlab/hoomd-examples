@@ -3,9 +3,10 @@
 
 """Start all the actions runner instances in jetstream2."""
 
-import openstack
 import sys
 import time
+
+import openstack
 
 NUM_ATTEMPTS = 8
 TIME_BETWEEN_ATTEMPTS = 20
