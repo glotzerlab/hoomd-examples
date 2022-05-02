@@ -25,15 +25,16 @@ on:
 jobs:
   execute_notebooks:
     name: Execute notebooks
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted,jetstream2,CPU]
     container:
       image: glotzerlab/software:nompi
       options: -u 0
     steps:
-    # build the HOOMD master branch to test the tutorials on the latest version
+    # build the HOOMD trunk-minor branch to test the tutorials on the latest version
     - uses: actions/checkout@v2.4.0
       with:
         path: hoomd
+        ref: trunk-minor
         repository: glotzerlab/hoomd-blue
         submodules: true
     - name: Make build directory
@@ -86,3 +87,30 @@ jobs:
         job_name: Execute notebooks
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  start_action_runners:
+    name: Start action runners
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.2
+        with:
+          path: code
+      - uses: actions/cache@v3.0.2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-openstacksdk==0.61.0
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install openstack
+        run: python3 -m pip install openstacksdk==0.61.0
+      - name: Start action runners
+        run: python3 code/.github/workflows/start-action-runners.py
+        env:
+          OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
+          OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+          OS_AUTH_TYPE: v3applicationcredential
+          OS_AUTH_URL: https://js2.jetstream-cloud.org:5000/v3/
+          OS_IDENTITY_API_VERSION: 3
+          OS_REGION_NAME: "IU"
+          OS_INTERFACE: public
