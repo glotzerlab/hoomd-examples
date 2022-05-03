@@ -31,7 +31,7 @@ jobs:
       options: -u 0
     steps:
     # build the HOOMD trunk-minor branch to test the tutorials on the latest version
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3.0.2
       with:
         path: hoomd
         ref: trunk-minor
@@ -60,7 +60,7 @@ jobs:
         PYTHONPATH: ${{ github.workspace }}/hoomd/build
 
     # clone the tutorials and run them
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3.0.2
       with:
         path: notebooks
     - name: List notebooks
