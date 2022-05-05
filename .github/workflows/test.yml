@@ -12,12 +12,12 @@ on:
   # request source branch is in the same repository.
   push:
     branches:
-      - "master"
+      - "trunk"
 
   # Trigger on request.
   workflow_dispatch:
 
-  # Weekly builds on the master branch to check that the examples continue to work with the latest
+  # Weekly builds on the trunk branch to check that the examples continue to work with the latest
   # development version of HOOMD.
   schedule:
   - cron:  '0 18 * * 1'
