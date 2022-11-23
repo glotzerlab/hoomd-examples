@@ -50,7 +50,7 @@ jobs:
       uses: actions/checkout@v3.1.0
       with:
         path: hoomd
-        ref: trunk-minor
+        ref: trunk-major
         repository: glotzerlab/hoomd-blue
         submodules: true
     - name: Make build directory
