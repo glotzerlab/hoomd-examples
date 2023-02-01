@@ -20,7 +20,7 @@ repos:
         args:
           - --py36-plus
   - repo: https://github.com/PyCQA/isort
-    rev: '5.11.4'
+    rev: '5.12.0'
     hooks:
       - id: isort
   - repo: https://github.com/google/yapf
@@ -34,7 +34,7 @@ repos:
         args:
           - --max-line-length=100
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.6.0
+    rev: 1.6.1
     hooks:
       - id: nbqa-pyupgrade
         args:
