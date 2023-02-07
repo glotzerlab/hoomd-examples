@@ -10,7 +10,7 @@ communicator = hoomd.communicator.Communicator(ranks_per_partition=2)
 device = hoomd.device.CPU(communicator=communicator)
 
 # Initialize the simulation.
-sim = hoomd.Simulation(device=device)
+sim = hoomd.Simulation(device=device, seed=1)
 sim.create_state_from_gsd(filename='random.gsd')
 
 # Choose system parameters based on the partition
@@ -24,8 +24,10 @@ lj = hoomd.md.pair.LJ(nlist=cell)
 lj.params[('A', 'A')] = dict(epsilon=1, sigma=1)
 lj.r_cut[('A', 'A')] = 2.5
 integrator.forces.append(lj)
-langevin = hoomd.md.methods.Langevin(kT=kT, filter=hoomd.filter.All())
-integrator.methods.append(langevin)
+nvt = hoomd.md.methods.ConstantVolume(
+    filter=hoomd.filter.All(),
+    thermostat=hoomd.md.methods.thermostats.Bussi(kT=kT))
+integrator.methods.append(nvt)
 sim.operations.integrator = integrator
 
 # Use the partition id in the output file name.
