@@ -31,9 +31,9 @@ class Project(flow.FlowProject):
     pass
 
 
-@Project.operation
 @Project.pre.true('initialized')
 @Project.post.true('randomized')
+@Project.operation
 def randomize(job):
     sim = create_simulation(job)
     sim.create_state_from_gsd(filename=job.fn('lattice.gsd'))
@@ -44,9 +44,9 @@ def randomize(job):
     job.document['randomized'] = True
 
 
-@Project.operation
 @Project.pre.after(randomize)
 @Project.post.true('compressed_step')
+@Project.operation
 def compress(job):
     sim = create_simulation(job)
     sim.create_state_from_gsd(filename=job.fn('random.gsd'))
@@ -87,12 +87,12 @@ def equilibrated(job):
         'timestep', 0) - job.document['compressed_step'] >= N_EQUIL_STEPS
 
 
-@Project.operation
 @flow.aggregator.groupsof(num=JOBS_PER_AGGREGATE)
 @Project.pre.true('compressed_step')
 @Project.post(lambda *jobs: all(equilibrated(job) for job in jobs))
 @flow.directives(nranks=lambda *jobs: RANKS_PER_PARTITION * len(jobs),
                  walltime=CLUSTER_JOB_WALLTIME)
+@Project.operation
 def equilibrate(*jobs):
     communicator = hoomd.communicator.Communicator(
         ranks_per_partition=RANKS_PER_PARTITION)

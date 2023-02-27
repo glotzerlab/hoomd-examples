@@ -31,9 +31,9 @@ class Project(flow.FlowProject):
     pass
 
 
-@Project.operation
 @Project.pre.true('initialized')
 @Project.post.true('randomized')
+@Project.operation
 def randomize(job):
     sim = create_simulation(job)
     sim.create_state_from_gsd(filename=job.fn('lattice.gsd'))
@@ -44,9 +44,9 @@ def randomize(job):
     job.document['randomized'] = True
 
 
-@Project.operation
 @Project.pre.after(randomize)
 @Project.post.true('compressed_step')
+@Project.operation
 def compress(job):
     sim = create_simulation(job)
     sim.create_state_from_gsd(filename=job.fn('random.gsd'))
@@ -82,12 +82,12 @@ def compress(job):
     job.document['compressed_step'] = sim.timestep
 
 
-@Project.operation
 @Project.pre.after(compress)
 @Project.post(lambda job: job.document.get('timestep', 0) - job.document[
     'compressed_step'] >= N_EQUIL_STEPS)
 # Cluster job directives.
 @flow.directives(nranks=N_RANKS, walltime=CLUSTER_JOB_WALLTIME)
+@Project.operation
 def equilibrate(job):
     end_step = job.document['compressed_step'] + N_EQUIL_STEPS
 
