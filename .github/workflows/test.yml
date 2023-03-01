@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: "Use jetstream2-admin/start"
-      uses: glotzerlab/jetstream2-admin/start@v1.1.0
+      uses: glotzerlab/jetstream2-admin/start@v1.2.1
       with:
         OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
         OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
@@ -47,7 +47,7 @@ jobs:
 
     # build the HOOMD trunk-minor branch to test the tutorials on the latest version
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v3.3.0
       with:
         path: hoomd
         ref: trunk-major
@@ -77,7 +77,7 @@ jobs:
 
     # clone the tutorials and run them
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v3.3.0
       with:
         path: notebooks
     - name: List notebooks
@@ -92,7 +92,7 @@ jobs:
     # notify developers if the scheduled check fails
     - name: Slack notification
       if: ${{ github.event_name == 'schedule' && (failure() || cancelled()) }}
-      uses: 8398a7/action-slack@v3.14.0
+      uses: 8398a7/action-slack@v3.15.0
       with:
         status: ${{ job.status }}
         fields: workflow,job,message,commit
