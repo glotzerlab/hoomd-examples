@@ -91,7 +91,7 @@ jobs:
 
     # This check is very basic, but we don't want to use `python -W error` as it will also catch any
     # warnings generated inside nbconvert and its dependencies.
-    - name: Check for deprecation warnings
+    - name: Check for warnings
       run: |
         has_warnings=0
         for file in **/*.ipynb
