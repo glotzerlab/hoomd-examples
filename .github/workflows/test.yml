@@ -89,6 +89,18 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}/hoomd/build
 
+    # This check is very basic, but we don't want to use `python -W error` as it will also catch any
+    # warnings generated inside nbconvert and its dependencies.
+    - name: Check for warnings
+      run: |
+        has_warnings=0
+        for file in **/*.ipynb
+        do
+          grep Warning $file && echo "::error file=${file}::Has deprecation warnings" && has_warnings=1
+        done
+        exit ${has_warnings}
+      working-directory: notebooks
+
     # notify developers if the scheduled check fails
     - name: Slack notification
       if: ${{ github.event_name == 'schedule' && (failure() || cancelled()) }}
