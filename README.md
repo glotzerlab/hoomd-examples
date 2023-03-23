@@ -16,6 +16,7 @@ included in HOOMD-blue's [documentation].
 * [Custom Actions In Python](04-Custom-Actions-In-Python/00-index.ipynb)
 * [Organizing and Executing Simulations](05-Organizing-and-Executing-Simulations/00-index.ipynb)
 * [Modelling Rigid Bodies](06-Modelling-Rigid-Bodies/00-index.ipynb)
+* [Modelling Patchy Particles](07-Modelling-Patchy-Particles/00-index.ipynb)
 
 ## Executing the tutorials
 

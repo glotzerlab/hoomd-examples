@@ -5,3 +5,4 @@
 * Bradley Dice - University of Michigan
 * Tobias Dwyer - University of Michigan
 * Brandon Butler - University of Michigan
+* Tim Moore - University of Michigan

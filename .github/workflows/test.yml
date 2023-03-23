@@ -64,7 +64,7 @@ jobs:
         -DENABLE_MPI=off
         -DENABLE_TBB=off
         -DBUILD_TESTING=off
-        -DBUILD_JIT=off
+        -DENABLE_LLVM=on
         ../
       working-directory: hoomd/build
     - name: Compile
