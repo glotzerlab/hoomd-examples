@@ -49,6 +49,10 @@ repos:
           # Strip metadata but keep counts and outputs
           - --keep-count
           - --keep-output
+          - --extra-keys
+          - metadata.kernelspec cell.metadata.ExecuteTime
+          - --drop-empty-cells
+
   - repo: https://github.com/bdice/nb-strip-paths
     rev: v0.1.0
     hooks:
