@@ -84,7 +84,7 @@ jobs:
       run: ls **/*.ipynb
       working-directory: notebooks
     - name: Execute notebooks
-      run: jupyter nbconvert --execute --inplace **/*.ipynb
+      run: 'for i in **; do echo "Running notebooks in: $i" && jupyter nbconvert --execute --inplace $i/*.ipynb || exit 1; done'
       working-directory: notebooks
       env:
         PYTHONPATH: ${{ github.workspace }}/hoomd/build
