@@ -13,6 +13,7 @@ on:
   push:
     branches:
       - "trunk"
+      - "trunk-major"
 
   # Trigger on request.
   workflow_dispatch:
@@ -84,7 +85,7 @@ jobs:
       run: ls **/*.ipynb
       working-directory: notebooks
     - name: Execute notebooks
-      run: 'for i in **; do echo "Running notebooks in: $i" && jupyter nbconvert --execute --inplace $i/*.ipynb || exit 1; done'
+      run: 'for i in */; do echo "Running notebooks in: $i" && jupyter nbconvert --execute --inplace $i/*.ipynb || exit 1; done'
       working-directory: notebooks
       env:
         PYTHONPATH: ${{ github.workspace }}/hoomd/build
