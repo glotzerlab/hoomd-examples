@@ -86,8 +86,8 @@ def compress(job):
 @Project.post(lambda job: job.document.get('timestep', 0) - job.document[
     'compressed_step'] >= N_EQUIL_STEPS)
 # Cluster job directives.
-@flow.directives(nranks=N_RANKS, walltime=CLUSTER_JOB_WALLTIME)
-@Project.operation
+@Project.operation(directives=dict(nranks=N_RANKS,
+                                   walltime=CLUSTER_JOB_WALLTIME))
 def equilibrate(job):
     end_step = job.document['compressed_step'] + N_EQUIL_STEPS
 
@@ -131,10 +131,9 @@ def equilibrate(job):
         job.document['a'] = sim.operations.integrator.a.to_base()
         job.document['d'] = sim.operations.integrator.d.to_base()
 
-        if sim.device.communicator.rank == 0:
-            walltime = sim.device.communicator.walltime
-            print(f'{job.id} ended on step {sim.timestep} '
-                  f'after {walltime} seconds')
+        walltime = sim.device.communicator.walltime
+        sim.device.notice(f'{job.id} ended on step {sim.timestep} '
+                          f'after {walltime} seconds')
 
 
 # Entrypoint.
