@@ -48,7 +48,7 @@ jobs:
 
     # build the HOOMD trunk-minor branch to test the tutorials on the latest version
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v3.5.3
       with:
         path: hoomd
         ref: trunk-major
@@ -78,7 +78,7 @@ jobs:
 
     # clone the tutorials and run them
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v3.5.3
       with:
         path: notebooks
     - name: List notebooks
