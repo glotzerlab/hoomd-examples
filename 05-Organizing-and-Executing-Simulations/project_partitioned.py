@@ -128,8 +128,8 @@ def equilibrate(*jobs):
         while sim.timestep < end_step:
             sim.run(min(100_000, end_step - sim.timestep))
 
-            if (sim.device.communicator.walltime + sim.walltime >=
-                    HOOMD_RUN_WALLTIME_LIMIT):
+            if (sim.device.communicator.walltime + sim.walltime
+                    >= HOOMD_RUN_WALLTIME_LIMIT):
                 break
     finally:
         hoomd.write.GSD.write(state=sim.state,
