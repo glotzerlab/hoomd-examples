@@ -86,8 +86,8 @@ def compress(job):
 @Project.post(lambda job: job.document.get('timestep', 0) - job.document[
     'compressed_step'] >= N_EQUIL_STEPS)
 # Cluster job directives.
-@Project.operation(directives=dict(nranks=N_RANKS,
-                                   walltime=CLUSTER_JOB_WALLTIME))
+@Project.operation(
+    directives=dict(nranks=N_RANKS, walltime=CLUSTER_JOB_WALLTIME))
 def equilibrate(job):
     end_step = job.document['compressed_step'] + N_EQUIL_STEPS
 
@@ -119,8 +119,8 @@ def equilibrate(job):
         while sim.timestep < end_step:
             sim.run(min(100_000, end_step - sim.timestep))
 
-            if (sim.device.communicator.walltime + sim.walltime >=
-                    HOOMD_RUN_WALLTIME_LIMIT):
+            if (sim.device.communicator.walltime + sim.walltime
+                    >= HOOMD_RUN_WALLTIME_LIMIT):
                 break
     finally:
         hoomd.write.GSD.write(state=sim.state,
