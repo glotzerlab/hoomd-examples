@@ -24,7 +24,7 @@ def create_simulation(job, communicator):
     ])
     simulation.operations.integrator = mc
 
-    return sim
+    return simulation
 
 
 class Project(flow.FlowProject):
@@ -141,8 +141,9 @@ def equilibrate(*jobs):
         job.document['d'] = simulation.operations.integrator.d.to_base()
 
         walltime = simulation.device.communicator.walltime
-        simulation.device.notice(f'{job.id} ended on step {simulation.timestep} '
-                          f'after {walltime} seconds')
+        simulation.device.notice(
+            f'{job.id} ended on step {simulation.timestep} '
+            f'after {walltime} seconds')
 
 
 if __name__ == '__main__':
