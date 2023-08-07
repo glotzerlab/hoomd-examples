@@ -10,11 +10,11 @@ communicator = hoomd.communicator.Communicator(ranks_per_partition=2)
 device = hoomd.device.CPU(communicator=communicator)
 
 # Initialize the simulation.
-sim = hoomd.Simulation(device=device, seed=1)
-sim.create_state_from_gsd(filename='random.gsd')
+simulation = hoomd.Simulation(device=device, seed=1)
+simulation.create_state_from_gsd(filename='random.gsd')
 
 # Choose system parameters based on the partition
-sim.seed = communicator.partition
+simulation.seed = communicator.partition
 kT = kT_values[communicator.partition]
 
 # Set the operations for a Lennard-Jones particle simulation.
@@ -28,13 +28,13 @@ nvt = hoomd.md.methods.ConstantVolume(
     filter=hoomd.filter.All(),
     thermostat=hoomd.md.methods.thermostats.Bussi(kT=kT))
 integrator.methods.append(nvt)
-sim.operations.integrator = integrator
+simulation.operations.integrator = integrator
 
 # Use the partition id in the output file name.
 gsd_writer = hoomd.write.GSD(filename=f'trajectory{communicator.partition}.gsd',
                              trigger=hoomd.trigger.Periodic(1000),
                              mode='xb')
-sim.operations.writers.append(gsd_writer)
+simulation.operations.writers.append(gsd_writer)
 
 # Run the simulation.
-sim.run(1000)
+simulation.run(1000)

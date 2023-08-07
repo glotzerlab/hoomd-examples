@@ -2,11 +2,11 @@ import hoomd
 
 # Initialize the simulation.
 device = hoomd.device.CPU()
-sim = hoomd.Simulation(device=device)
-sim.create_state_from_gsd(filename='random.gsd')
+simulation = hoomd.Simulation(device=device)
+simulation.create_state_from_gsd(filename='random.gsd')
 
 # Access the local snapshot.
-with sim.state.cpu_local_snapshot as snapshot:
+with simulation.state.cpu_local_snapshot as snapshot:
     N = len(snapshot.particles.position)
 
     # Double the mass of every particle.
