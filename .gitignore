@@ -7,3 +7,4 @@
 *.dcd
 *.pyc
 __pycache__
+*.h5
