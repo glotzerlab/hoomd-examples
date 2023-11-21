@@ -1,0 +1,65 @@
+target-version = "py38"
+
+line-length = 100
+
+extend-include = ["*.ipynb"]
+
+extend-select = [
+    "A",
+    "B",
+    "D",
+    "E501",
+    "EM",
+    "I",
+    "ICN",
+    "ISC",
+    "N",
+    "NPY",
+    "PL",
+    "PT",
+    "RET",
+    "RUF",
+    "UP",
+    "W",
+]
+
+ignore = [
+  "N806", "N803",  # Allow occasional use of uppercase variable and argument names (e.g. N).
+  "D107", # Do not document __init__ separately from the class.
+  "PLR09", # Allow "too many" statements/arguments/etc...
+  "D100", # The tutorials provide documentation context, no docstrings needed.
+  "D101", # The tutorials provide documentation context, no docstrings needed.
+  "D102", # The tutorials provide documentation context, no docstrings needed.
+  "D103", # The tutorials provide documentation context, no docstrings needed.
+  "D105", # The tutorials provide documentation context, no docstrings needed.
+  "N816", # Allow mixed case names like kT.
+  "B028", # Tutorials do not need stacklevel in warnings.warn.
+  "PLR2004", # Users will understand magic values in the context of the tutorial.
+]
+
+[lint.per-file-ignores]
+
+"*.ipynb" = ["B018", # In notebooks, useless expressions are displayed in the cell output.
+             "E402", # Notebook cells often import modules when it is appropriate for the tutorial.
+             "E741", # Ambiguous names have meaning in standard Physics notation.
+             "B015", # Comparisons display their result in notebooks.
+]
+
+[pydocstyle]
+convention = "google"
+
+[format]
+quote-style = "single"
+
+[lint.flake8-import-conventions]
+# Prefer no import aliases
+aliases = {}
+# Always import hoomd without 'from'
+banned-from = ["hoomd"]
+
+# Ban standard import conventions and force common packages to be imported by their actual name.
+[lint.flake8-import-conventions.banned-aliases]
+"numpy" = ["np"]
+"pandas" = ["pd"]
+"matplotlib" = ["mpl"]
+
