@@ -74,7 +74,8 @@ def compress(job):
         simulation.run(1000)
 
     if not compress.complete:
-        raise RuntimeError("Compression failed to complete")
+        message = "Compression failed to complete."
+        raise RuntimeError(message)
 
     hoomd.write.GSD.write(state=simulation.state,
                           mode='xb',
