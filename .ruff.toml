@@ -43,6 +43,7 @@ ignore = [
              "E402", # Notebook cells often import modules when it is appropriate for the tutorial.
              "E741", # Ambiguous names have meaning in standard Physics notation.
              "B015", # Comparisons display their result in notebooks.
+             "RUF005", # RUF misidentifies numpy array addition as list appending.
 ]
 
 [pydocstyle]
