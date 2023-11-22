@@ -63,4 +63,3 @@ banned-from = ["hoomd"]
 "numpy" = ["np"]
 "pandas" = ["pd"]
 "matplotlib" = ["mpl"]
-
