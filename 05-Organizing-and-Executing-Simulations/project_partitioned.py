@@ -162,7 +162,7 @@ def equilibrate(*jobs):
 
         walltime = simulation.device.communicator.walltime
         simulation.device.notice(
-            f'{job.id} ended on step {simulation.timestep} ' f'after {walltime} seconds'
+            f'{job.id} ended on step {simulation.timestep} after {walltime} seconds'
         )
 
 
