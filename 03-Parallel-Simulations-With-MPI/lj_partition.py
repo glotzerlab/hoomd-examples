@@ -25,15 +25,17 @@ lj.params[('A', 'A')] = dict(epsilon=1, sigma=1)
 lj.r_cut[('A', 'A')] = 2.5
 integrator.forces.append(lj)
 nvt = hoomd.md.methods.ConstantVolume(
-    filter=hoomd.filter.All(),
-    thermostat=hoomd.md.methods.thermostats.Bussi(kT=kT))
+    filter=hoomd.filter.All(), thermostat=hoomd.md.methods.thermostats.Bussi(kT=kT)
+)
 integrator.methods.append(nvt)
 simulation.operations.integrator = integrator
 
 # Use the partition id in the output file name.
-gsd_writer = hoomd.write.GSD(filename=f'trajectory{communicator.partition}.gsd',
-                             trigger=hoomd.trigger.Periodic(1000),
-                             mode='xb')
+gsd_writer = hoomd.write.GSD(
+    filename=f'trajectory{communicator.partition}.gsd',
+    trigger=hoomd.trigger.Periodic(1000),
+    mode='xb',
+)
 simulation.operations.writers.append(gsd_writer)
 
 # Run the simulation.
