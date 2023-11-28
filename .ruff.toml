@@ -1,7 +1,5 @@
 target-version = "py38"
 
-line-length = 100
-
 extend-include = ["*.ipynb"]
 
 extend-select = [

@@ -13,14 +13,6 @@ repos:
       - id: debug-statements
       - id: check-yaml
       - id: check-case-conflict
-  - repo: https://github.com/google/yapf
-    rev: 'v0.40.2'
-    hooks:
-      - id: yapf
-  - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.7.0
-    hooks:
-      - id: nbqa-yapf
   - repo: https://github.com/kynan/nbstripout
     rev: 0.6.1
     hooks:
@@ -39,6 +31,6 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.4
     hooks:
-      # -id: ruff-format  # TODO: Enable in a future PR.
+      - id: ruff-format
       - id: ruff
         types_or: [ python, jupyter ]

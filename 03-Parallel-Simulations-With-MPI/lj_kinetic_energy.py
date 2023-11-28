@@ -13,14 +13,15 @@ lj.params[('A', 'A')] = dict(epsilon=1, sigma=1)
 lj.r_cut[('A', 'A')] = 2.5
 integrator.forces.append(lj)
 nvt = hoomd.md.methods.ConstantVolume(
-    filter=hoomd.filter.All(),
-    thermostat=hoomd.md.methods.thermostats.Bussi(kT=1.5))
+    filter=hoomd.filter.All(), thermostat=hoomd.md.methods.thermostats.Bussi(kT=1.5)
+)
 integrator.methods.append(nvt)
 simulation.operations.integrator = integrator
 
 # Instantiate a ThermodyanmicQuantities object to compute kinetic energy.
 thermodynamic_properties = hoomd.md.compute.ThermodynamicQuantities(
-    filter=hoomd.filter.All())
+    filter=hoomd.filter.All()
+)
 simulation.operations.computes.append(thermodynamic_properties)
 
 # Run the simulation.
