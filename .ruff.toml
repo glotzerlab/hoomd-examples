@@ -2,6 +2,8 @@ target-version = "py38"
 
 extend-include = ["*.ipynb"]
 
+[lint]
+
 extend-select = [
     "A",
     "B",
@@ -44,7 +46,7 @@ ignore = [
              "RUF005", # RUF misidentifies numpy array addition as list appending.
 ]
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "google"
 
 [format]
