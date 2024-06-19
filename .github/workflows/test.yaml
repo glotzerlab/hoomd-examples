@@ -44,6 +44,10 @@ jobs:
         echo "CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
         echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
 
+    # TODO: Move jupyter to hoomd's conda lock file?
+    - name: Install jupyter
+      run: micromamba install jupyterlab
+
     - name: Configure
       run: >-
         cmake -B hoomd/build -S hoomd -GNinja
