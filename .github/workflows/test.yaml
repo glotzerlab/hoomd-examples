@@ -26,7 +26,7 @@ jobs:
     - name: Checkout hoomd
       uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       with:
-        path: hoomd
+        path: code
         ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
         repository: glotzerlab/hoomd-blue
         submodules: true
@@ -34,7 +34,7 @@ jobs:
     - name: Determine hoomd hash
       id: hoomd
       run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-      working-directory: hoomd
+      working-directory: code
 
     - name: Restore cached HOOMD-blue build
       id: cache
@@ -65,7 +65,7 @@ jobs:
     - name: Configure
       if: steps.cache.outputs.cache-hit != 'true'
       run: >-
-        cmake -B hoomd/build -S hoomd -GNinja
+        cmake -B hoomd/build -S code -GNinja
         -DCMAKE_BUILD_TYPE=Release
         -DENABLE_GPU=off
         -DENABLE_MPI=on
@@ -76,7 +76,7 @@ jobs:
 
     - name: Compile
       if: steps.cache.outputs.cache-hit != 'true'
-      run: ninja -j $(($(getconf _NPROCESSORS_ONLN) + 2))
+      run: ninja install -j $(($(getconf _NPROCESSORS_ONLN) + 2))
       working-directory: hoomd/build
 
     - name: Cache HOOMD-blue build
