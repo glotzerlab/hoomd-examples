@@ -13,7 +13,7 @@
 version: 1
 metadata:
   content_hash:
-    linux-64: d3eed161e3c9c313498578ca1fe01321b52da87a0593d82b9c92098265e7edb1
+    linux-64: f895550dd0e0dea260b1ee5bdcf634774a5b09e9e16c1fa957c87950fc3552bb
   channels:
   - url: conda-forge/label/numpy_rc
     used_env_vars: []
@@ -1187,6 +1187,23 @@ package:
     sha256: 4a53d39e44ce8bb7ce75f50b9e2f594e0bac12812cfe1e7525bb285d64a69d78
   category: main
   optional: false
+- name: ipywidgets
+  version: 8.1.3
+  manager: conda
+  platform: linux-64
+  dependencies:
+    comm: '>=0.1.3'
+    ipython: '>=6.1.0'
+    jupyterlab_widgets: '>=3.0.11,<3.1.0'
+    python: '>=3.7'
+    traitlets: '>=4.3.1'
+    widgetsnbextension: '>=4.0.11,<4.1.0'
+  url: https://conda.anaconda.org/conda-forge/noarch/ipywidgets-8.1.3-pyhd8ed1ab_0.conda
+  hash:
+    md5: a1323654e9d87b16642ef02a03b98b32
+    sha256: 161b5132d8f4d0c344205ec238c7f268edb517d6da66a1f497342ff26590da00
+  category: main
+  optional: false
 - name: isoduration
   version: 20.11.0
   manager: conda
@@ -1472,6 +1489,18 @@ package:
   hash:
     md5: d1cb7b113daaadd89e5aa6a32b28bf0d
     sha256: d4b9f9f46b3c494d678b4f003d7a2f7ac834dba641bd02332079dde5a9a85c98
+  category: main
+  optional: false
+- name: jupyterlab_widgets
+  version: 3.0.11
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.11-pyhd8ed1ab_0.conda
+  hash:
+    md5: fc0cb2abcfcec65ecbdcde4289b62fea
+    sha256: 14053a987d44da2f36d79e28147d4e2551cda2559cba6144103b677ef26616a8
   category: main
   optional: false
 - name: keyutils
@@ -3824,6 +3853,18 @@ package:
   hash:
     md5: f372c576b8774922da83cda2b12f9d29
     sha256: 44a5e3b97feef24cd719f7851cca9af9799dc9c17d3e0298d5856baab2d682f5
+  category: main
+  optional: false
+- name: widgetsnbextension
+  version: 4.0.11
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.11-pyhd8ed1ab_0.conda
+  hash:
+    md5: 95ba42a349c9d8eac28e30d0b637401f
+    sha256: 240582f3aff18f28b3500e76f727e1c58048bfc1a445c71b7087907a0a85a5e6
   category: main
   optional: false
 - name: xcb-util

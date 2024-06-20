@@ -9,6 +9,7 @@ dependencies:
 - fresnel
 - gsd
 - h5py
+- ipywidgets
 - jupyterlab
 - ninja
 - numpy>=2.0.0rc1
