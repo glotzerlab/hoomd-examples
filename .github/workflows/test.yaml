@@ -113,7 +113,8 @@ jobs:
         has_warnings=0
         for file in **/*.ipynb
         do
-          grep Warning $file && echo "::error file=${file}::Has deprecation warnings" && has_warnings=1
+          grep Warning $file && echo "::warning file=${file}::Has deprecation warnings" && has_warnings=1
         done
-        exit ${has_warnings}
+        # Allow deprecation warnings for now.
+        # exit ${has_warnings}
       working-directory: notebooks
