@@ -13,7 +13,7 @@
 version: 1
 metadata:
   content_hash:
-    linux-64: 604976d2b46affaa68dc48b2a9e6905380c37da940ba2ee72aef68bd6bbd52e4
+    linux-64: 3278d853a2b6191cb4090b888682ed8dcbc658b4848ba6ca0d6b20f998e85f92
   channels:
   - url: conda-forge/label/numpy_rc
     used_env_vars: []
@@ -523,6 +523,20 @@ package:
     sha256: 53b15a98aadbe0704479bacaf7a5618fcb32d1577be320630674574241639b34
   category: main
   optional: false
+- name: embree
+  version: 4.3.2
+  manager: conda
+  platform: linux-64
+  dependencies:
+    libgcc-ng: '>=12'
+    libstdcxx-ng: '>=12'
+    tbb: '>=2021.12.0'
+  url: https://conda.anaconda.org/conda-forge/linux-64/embree-4.3.2-h0f93ebe_0.conda
+  hash:
+    md5: c7a56c8f76799f0ad0c16f7d62a839d0
+    sha256: fa7f866b15245f79f1bd74e6bd60619146b046f0c57b3a8793cdfc14221f40e6
+  category: main
+  optional: false
 - name: entrypoints
   version: '0.4'
   manager: conda
@@ -700,6 +714,26 @@ package:
   hash:
     md5: 9ae35c3d96db2c94ce0cef86efdfa2cb
     sha256: b2e3c449ec9d907dd4656cb0dc93e140f447175b125a3824b31368b06c666bb6
+  category: main
+  optional: false
+- name: fresnel
+  version: 0.13.6
+  manager: conda
+  platform: linux-64
+  dependencies:
+    embree: '>=4.3.1,<4.4.0a0'
+    libgcc-ng: '>=12'
+    libstdcxx-ng: '>=12'
+    numpy: '>=1.19,<3'
+    pillow: ''
+    python: '>=3.12,<3.13.0a0'
+    python_abi: 3.12.*
+    qhull: '>=2020.2,<2020.3.0a0'
+    tbb: '>=2021.12.0'
+  url: https://conda.anaconda.org/conda-forge/linux-64/fresnel-0.13.6-py312h350a1da_1.conda
+  hash:
+    md5: 679d8ed3ef93b8307c8163860bfa593b
+    sha256: fab6117fd60037f2800791a988ceb78841d09a2cf202a056dbd8e02996bb923e
   category: main
   optional: false
 - name: freud
@@ -3154,6 +3188,19 @@ package:
   hash:
     md5: 27efa6d21e98bcab4585a6b913df7625
     sha256: a3bf1e1af97a256a3a498cc7f2fedb478df18cf629cc9e9aa73a5b4cfc204d45
+  category: main
+  optional: false
+- name: qhull
+  version: '2020.2'
+  manager: conda
+  platform: linux-64
+  dependencies:
+    libgcc-ng: '>=9.4.0'
+    libstdcxx-ng: '>=9.4.0'
+  url: https://conda.anaconda.org/conda-forge/linux-64/qhull-2020.2-h4bd325d_2.tar.bz2
+  hash:
+    md5: 5acb8407fefa1c1929c11c167237e776
+    sha256: e1d6e4e74486ce4844c4bbdc7198bb4d8191b70881f6415d1f4b5fd8d98f18d7
   category: main
   optional: false
 - name: qt-main

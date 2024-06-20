@@ -6,6 +6,7 @@ dependencies:
 - cmake
 - eigen
 - freud
+- fresnel
 - gsd
 - h5py
 - jupyterlab
