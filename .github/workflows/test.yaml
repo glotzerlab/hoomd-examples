@@ -26,7 +26,7 @@ jobs:
       uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       with:
         path: hoomd
-        ref: ${{ if github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
+        ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
         repository: glotzerlab/hoomd-blue
         submodules: true
     - name: Checkout notebooks
@@ -38,7 +38,7 @@ jobs:
       uses: mamba-org/setup-micromamba@f8b8a1e23a26f60a44c853292711bacfd3eac822 # v1.9.0
       with:
         environment-name: test
-        environment-file: .github/workflows/environments/py312-conda-lock.yml
+        environment-file: notebooks/.github/workflows/environments/py312-conda-lock.yml
         micromamba-root-path: ${{ github.workspace }}/micromamba
 
     - name: Configure conda environment variables
