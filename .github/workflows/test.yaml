@@ -34,6 +34,7 @@ jobs:
     - name: Determine hoomd hash
       id: hoomd
       run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      working-directory: hoomd
 
     - name: Restore cached HOOMD-blue build
       id: cache
