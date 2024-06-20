@@ -13,7 +13,7 @@
 version: 1
 metadata:
   content_hash:
-    linux-64: 3278d853a2b6191cb4090b888682ed8dcbc658b4848ba6ca0d6b20f998e85f92
+    linux-64: d3eed161e3c9c313498578ca1fe01321b52da87a0593d82b9c92098265e7edb1
   channels:
   - url: conda-forge/label/numpy_rc
     used_env_vars: []
@@ -394,6 +394,18 @@ package:
     sha256: 20cae47d31fdd58d99c4d2e65fbdcefa0b0de0c84e455ba9d6356a4bdbc4b5b9
   category: main
   optional: false
+- name: cloudpickle
+  version: 3.0.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.8'
+  url: https://conda.anaconda.org/conda-forge/noarch/cloudpickle-3.0.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: 753d29fe41bb881e4b9c004f0abf973f
+    sha256: 0dfbc1ffa72e7a0882f486c9b1e4e9cccb68cf5c576fe53a89d076c9f1d43754
+  category: main
+  optional: false
 - name: cmake
   version: 3.29.6
   manager: conda
@@ -414,6 +426,18 @@ package:
   hash:
     md5: b1084336535950b28485bb93653ca152
     sha256: a788df92bf0e6e02d13ebc4e14e8bc56c80186f976200537799426aafc0e51ab
+  category: main
+  optional: false
+- name: colorama
+  version: 0.4.6
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.6-pyhd8ed1ab_0.tar.bz2
+  hash:
+    md5: 3faab06a954c2a04039983f2c4a50d99
+    sha256: 2c1b2e9755ce3102bca8d69e8f26e4f087ece73f50418186aee7c74bef8e1698
   category: main
   optional: false
 - name: comm
@@ -510,6 +534,19 @@ package:
     sha256: 9717a059677553562a8f38ff07f3b9f61727bd614f505658b0a5ecbcf8df89be
   category: main
   optional: false
+- name: deprecation
+  version: 2.1.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    packaging: ''
+    python: ''
+  url: https://conda.anaconda.org/conda-forge/noarch/deprecation-2.1.0-pyh9f0ad1d_0.tar.bz2
+  hash:
+    md5: 7b6747d7cc2076341029cff659669e8b
+    sha256: 2695a60ff355b114d0c459458461d941d2209ec9aff152853b6a3ca8700c94ec
+  category: main
+  optional: false
 - name: eigen
   version: 3.4.0
   manager: conda
@@ -584,6 +621,18 @@ package:
   hash:
     md5: 53fb86322bdb89496d7579fe3f02fd61
     sha256: 89916c536ae5b85bb8bf0cfa27d751e274ea0911f04e4a928744735c14ef5155
+  category: main
+  optional: false
+- name: filelock
+  version: 3.15.3
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/filelock-3.15.3-pyhd8ed1ab_0.conda
+  hash:
+    md5: eae681f708bd52d9d172bd5c9af23898
+    sha256: b696060a1e372c49d29d0e7828f8de0894a91e3677a1812e7383cc7a2746b5a1
   category: main
   optional: false
 - name: font-ttf-dejavu-sans-mono
@@ -3411,6 +3460,40 @@ package:
     sha256: a43d33436f4ac57ebd6ee15f700b33b26a2d37b7e43981b1fa036908579dafd6
   category: main
   optional: false
+- name: signac
+  version: 2.2.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    filelock: '>=3.0'
+    packaging: '>=15.0'
+    python: '>=3.8'
+    synced_collections: '>=1.0.0'
+    tqdm: '>=4.10.0'
+  url: https://conda.anaconda.org/conda-forge/noarch/signac-2.2.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: baac87937bf2e723d56497c217a81f7b
+    sha256: b73746ac53561a593d66eb16b3404f137f3e4de2ceb05b57d1809625b51ad552
+  category: main
+  optional: false
+- name: signac-flow
+  version: 0.29.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    cloudpickle: '>=1.6.0'
+    deprecation: '>=2.0.0'
+    jinja2: '>=3.0.0'
+    jsonschema: '>=3.0.0'
+    python: '>=3.8'
+    signac: '>=2.2.0'
+    tqdm: '>=4.60.0'
+  url: https://conda.anaconda.org/conda-forge/noarch/signac-flow-0.29.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: 403c50128303a3e8af703dca27b50c0c
+    sha256: 2c8e4d048487465e3235c7f0a7493beec3c67a1a6386d1d82e56b16b685628d8
+  category: main
+  optional: false
 - name: sip
   version: 6.7.12
   manager: conda
@@ -3478,6 +3561,18 @@ package:
   hash:
     md5: e7df0fdd404616638df5ece6e69ba7af
     sha256: a58433e75229bec39f3be50c02efbe9b7083e53a1f31d8ee247564f370191eec
+  category: main
+  optional: false
+- name: synced_collections
+  version: 1.0.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.8'
+  url: https://conda.anaconda.org/conda-forge/noarch/synced_collections-1.0.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: afd9058109f6d81eb12f38a1e0c651b4
+    sha256: f08fe2655e98d833e196207e24ce52c03c89b1e9bb043331459f3b279355fd55
   category: main
   optional: false
 - name: tbb
@@ -3571,6 +3666,19 @@ package:
   hash:
     md5: fd9c83fde763b494f07acee1404c280e
     sha256: fcf92fde5bac323921d97f8f2e66ee134ea01094f14d4e99c56f98187241c638
+  category: main
+  optional: false
+- name: tqdm
+  version: 4.66.4
+  manager: conda
+  platform: linux-64
+  dependencies:
+    colorama: ''
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/tqdm-4.66.4-pyhd8ed1ab_0.conda
+  hash:
+    md5: e74cd796e70a4261f86699ee0a3a7a24
+    sha256: 75342f40a69e434a1a23003c3e254a95dca695fb14955bc32f1819cd503964b2
   category: main
   optional: false
 - name: traitlets
