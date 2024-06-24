@@ -24,7 +24,7 @@ jobs:
     steps:
 
     - name: Checkout hoomd
-      uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       with:
         path: code
         ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
@@ -44,7 +44,7 @@ jobs:
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
 
     - name: Checkout notebooks
-      uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       with:
         path: notebooks
 
