@@ -1,0 +1,121 @@
+name: Test
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+
+  push:
+    branches:
+      - "trunk-minor"
+      - "trunk-major"
+
+  workflow_dispatch:
+
+  schedule:
+  - cron:  '0 18 * * 1'
+
+jobs:
+  execute_notebooks:
+    name: Execute notebooks
+    runs-on: ubuntu-24.04
+    steps:
+
+    - name: Checkout hoomd
+      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      with:
+        path: code
+        ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
+        repository: glotzerlab/hoomd-blue
+        submodules: true
+
+    - name: Determine hoomd hash
+      id: hoomd
+      run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      working-directory: code
+
+    - name: Restore cached HOOMD-blue build
+      id: cache
+      uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      with:
+        path: install
+        key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
+
+    - name: Checkout notebooks
+      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      with:
+        path: notebooks
+
+    - name: Create Python Environment
+      uses: mamba-org/setup-micromamba@f8b8a1e23a26f60a44c853292711bacfd3eac822 # v1.9.0
+      with:
+        environment-name: test
+        environment-file: notebooks/.github/workflows/environments/py312-conda-lock.yml
+        micromamba-root-path: ${{ github.workspace }}/micromamba
+
+    - name: Configure conda environment variables
+      run: |
+        echo "PYTHONPATH=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
+        echo "CONDA_PREFIX=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
+        echo "CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
+        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
+
+    - name: Configure
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: >-
+        cmake -B hoomd/build -S code -GNinja
+        -DCMAKE_BUILD_TYPE=Release
+        -DENABLE_GPU=off
+        -DENABLE_MPI=on
+        -DENABLE_TBB=off
+        -DBUILD_TESTING=off
+        -DENABLE_LLVM=off
+        -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install
+
+    - name: Compile
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: ninja install -j $(($(getconf _NPROCESSORS_ONLN) + 2))
+      working-directory: hoomd/build
+
+    - name: Cache HOOMD-blue build
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      with:
+        path: install
+        key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
+
+    - name: Display hoomd version
+      run: python3 -c "import hoomd; print(hoomd.version.version, hoomd.version.git_sha1)"
+
+    - name: List notebooks
+      run: ls **/*.ipynb
+      working-directory: notebooks
+
+    - name: Execute notebooks
+      run: |
+        for i in */
+        do
+          # Skip CPPPotential examples until they are rewritten.
+          if [[ $i == "07-Modelling-Patchy-Particles"* ]]; then
+              echo "Skipping notebooks in $i"
+          else
+            echo "Running notebooks in: $i" && jupyter nbconvert --execute --inplace $i/*.ipynb || exit 1
+          fi
+        done
+      working-directory: notebooks
+
+    # This check is very basic, but we don't want to use `python -W error` as it will also catch any
+    # warnings generated inside nbconvert and its dependencies.
+    - name: Check for warnings
+      run: |
+        has_warnings=0
+        for file in **/*.ipynb
+        do
+          grep Warning $file && echo "::warning file=${file}::Has deprecation warnings" && has_warnings=1
+        done
+        # Allow deprecation warnings for now.
+        # exit ${has_warnings}
+        exit 0
+      working-directory: notebooks

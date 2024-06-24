@@ -2,7 +2,7 @@ version: 2
 updates:
 - package-ecosystem: "github-actions"
   directory: "/"
-  target-branch: trunk
+  target-branch: trunk-minor
   schedule:
     interval: "monthly"
     time: "07:00"

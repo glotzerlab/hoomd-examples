@@ -43,9 +43,11 @@ These examples use the following python packages:
 * [jupyterlab](http://jupyterlab.io/)
 * [matplotlib](http://matplotlib.org/)
 * [pillow](https://python-pillow.org/)
+* [signac](https://signac.io/)
+* [signac-flow](https://signac.io/)
 
 Conda users can install these from [conda-forge](https://conda-forge.org/):
 
 ```bash
-conda install -c conda-forge fresnel freud  gsd hoomd jupyterlab matplotlib
+conda install -c conda-forge fresnel freud gsd hoomd jupyterlab matplotlib pillow signac signac-flow
 ```

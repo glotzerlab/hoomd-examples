@@ -1,0 +1,23 @@
+channels:
+- conda-forge/label/numpy_rc
+- conda-forge
+dependencies:
+- cereal
+- cmake
+- eigen
+- freud
+- fresnel
+- gsd
+- h5py
+- ipywidgets
+- jupyterlab
+- ninja
+- numpy>=2.0.0rc1
+- matplotlib
+- mpi4py
+- openmpi
+- pillow
+- pybind11
+- python==3.12
+- signac
+- signac-flow
