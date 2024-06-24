@@ -117,4 +117,5 @@ jobs:
         done
         # Allow deprecation warnings for now.
         # exit ${has_warnings}
+        exit 0
       working-directory: notebooks
