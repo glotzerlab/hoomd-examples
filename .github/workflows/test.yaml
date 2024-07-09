@@ -115,7 +115,5 @@ jobs:
         do
           grep Warning $file && echo "::warning file=${file}::Has deprecation warnings" && has_warnings=1
         done
-        # Allow deprecation warnings for now.
-        # exit ${has_warnings}
-        exit 0
+        exit ${has_warnings}
       working-directory: notebooks
