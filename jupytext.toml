@@ -1,0 +1,2 @@
+notebook_metadata_filter="-all"
+formats = "ipynb,md:myst"

@@ -97,12 +97,7 @@ jobs:
       run: |
         for i in */
         do
-          # Skip CPPPotential examples until they are rewritten.
-          if [[ $i == "07-Modelling-Patchy-Particles"* ]]; then
-              echo "Skipping notebooks in $i"
-          else
-            echo "Running notebooks in: $i" && jupyter nbconvert --execute --inplace $i/*.ipynb || exit 1
-          fi
+          echo "Running notebooks in: $i" && jupyter nbconvert --execute --inplace $i/*.ipynb || exit 1
         done
       working-directory: notebooks
 

@@ -30,5 +30,6 @@ repos:
     rev: v0.5.0
     hooks:
       - id: ruff-format
+        types_or: [ python, jupyter ]
       - id: ruff
         types_or: [ python, jupyter ]
