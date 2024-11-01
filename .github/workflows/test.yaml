@@ -24,7 +24,7 @@ jobs:
     steps:
 
     - name: Checkout hoomd
-      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         path: code
         ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
@@ -38,18 +38,18 @@ jobs:
 
     - name: Restore cached HOOMD-blue build
       id: cache
-      uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache/restore@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
 
     - name: Checkout notebooks
-      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         path: notebooks
 
     - name: Create Python Environment
-      uses: mamba-org/setup-micromamba@f8b8a1e23a26f60a44c853292711bacfd3eac822 # v1.9.0
+      uses: mamba-org/setup-micromamba@617811f69075e3fd3ae68ca64220ad065877f246 # v2.0.0
       with:
         environment-name: test
         environment-file: notebooks/.github/workflows/environments/py312-conda-lock.yml
@@ -81,7 +81,7 @@ jobs:
 
     - name: Cache HOOMD-blue build
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache/save@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
