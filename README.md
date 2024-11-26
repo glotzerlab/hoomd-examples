@@ -44,5 +44,5 @@ These examples use the following python packages:
 You can install these from [conda-forge](https://conda-forge.org/):
 
 ```bash
-mamba install fresnel freud gsd hoomd matplotlib pillow signac signac-flow
+micromamba install fresnel freud gsd hoomd matplotlib pillow signac signac-flow
 ```
