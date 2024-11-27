@@ -15,8 +15,4 @@ assignees: ''
 
 ## Section
 
-<!--  Where does the new tutorial fit in the [outline](README.md)? -->
-
-## Author
-
-<!-- Are you able to write this tutorial for the benefit of the HOOMD user community? -->
+<!--  What section does the new tutorial add to? Or is it a standalone lesson? -->
