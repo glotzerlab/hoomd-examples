@@ -3,7 +3,7 @@ import hoomd
 # Initialize the simulation.
 device = hoomd.device.CPU()
 simulation = hoomd.Simulation(device=device)
-simulation.create_state_from_gsd(filename='random.gsd')
+simulation.create_state_from_gsd(filename="random.gsd")
 
 # Access the local snapshot.
 with simulation.state.cpu_local_snapshot as snapshot:
