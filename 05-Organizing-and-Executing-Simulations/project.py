@@ -14,7 +14,7 @@ def create_simulation(job):
     cpu = hoomd.device.CPU()
     simulation = hoomd.Simulation(device=cpu, seed=job.statepoint.seed)
     mc = hoomd.hpmc.integrate.ConvexPolyhedron()
-    mc.shape['octahedron'] = dict(
+    mc.shape["octahedron"] = dict(
         vertices=[
             (-0.5, 0, 0),
             (0.5, 0, 0),
@@ -33,25 +33,25 @@ class Project(flow.FlowProject):
     pass
 
 
-@Project.pre.true('initialized')
-@Project.post.true('randomized')
+@Project.pre.true("initialized")
+@Project.post.true("randomized")
 @Project.operation
 def randomize(job):
     simulation = create_simulation(job)
-    simulation.create_state_from_gsd(filename=job.fn('lattice.gsd'))
+    simulation.create_state_from_gsd(filename=job.fn("lattice.gsd"))
     simulation.run(10e3)
     hoomd.write.GSD.write(
-        state=simulation.state, mode='xb', filename=job.fn('random.gsd')
+        state=simulation.state, mode="xb", filename=job.fn("random.gsd")
     )
-    job.document['randomized'] = True
+    job.document["randomized"] = True
 
 
 @Project.pre.after(randomize)
-@Project.post.true('compressed_step')
+@Project.post.true("compressed_step")
 @Project.operation
 def compress(job):
     simulation = create_simulation(job)
-    simulation.create_state_from_gsd(filename=job.fn('random.gsd'))
+    simulation.create_state_from_gsd(filename=job.fn("random.gsd"))
 
     a = math.sqrt(2) / 2
     V_particle = 1 / 3 * math.sqrt(2) * a**3
@@ -68,7 +68,7 @@ def compress(job):
 
     periodic = hoomd.trigger.Periodic(10)
     tune = hoomd.hpmc.tune.MoveSize.scale_solver(
-        moves=['a', 'd'],
+        moves=["a", "d"],
         target=0.2,
         trigger=periodic,
         max_translation_move=0.2,
@@ -80,49 +80,49 @@ def compress(job):
         simulation.run(1000)
 
     if not compress.complete:
-        message = 'Compression failed to complete.'
+        message = "Compression failed to complete."
         raise RuntimeError(message)
 
     hoomd.write.GSD.write(
-        state=simulation.state, mode='xb', filename=job.fn('compressed.gsd')
+        state=simulation.state, mode="xb", filename=job.fn("compressed.gsd")
     )
-    job.document['compressed_step'] = simulation.timestep
+    job.document["compressed_step"] = simulation.timestep
 
 
 @Project.pre.after(compress)
 @Project.post(
-    lambda job: job.document.get('timestep', 0) - job.document['compressed_step']
+    lambda job: job.document.get("timestep", 0) - job.document["compressed_step"]
     >= N_EQUIL_STEPS
 )
 # Cluster job directives.
 @Project.operation(directives=dict(nranks=N_RANKS, walltime=CLUSTER_JOB_WALLTIME))
 def equilibrate(job):
-    end_step = job.document['compressed_step'] + N_EQUIL_STEPS
+    end_step = job.document["compressed_step"] + N_EQUIL_STEPS
 
     simulation = create_simulation(job)
 
-    simulation.operations.integrator.a = job.document.get('a', {})
-    simulation.operations.integrator.d = job.document.get('d', {})
+    simulation.operations.integrator.a = job.document.get("a", {})
+    simulation.operations.integrator.d = job.document.get("d", {})
 
-    if job.isfile('restart.gsd'):
-        simulation.create_state_from_gsd(filename=job.fn('restart.gsd'))
+    if job.isfile("restart.gsd"):
+        simulation.create_state_from_gsd(filename=job.fn("restart.gsd"))
     else:
-        simulation.create_state_from_gsd(filename=job.fn('compressed.gsd'))
+        simulation.create_state_from_gsd(filename=job.fn("compressed.gsd"))
 
     gsd_writer = hoomd.write.GSD(
-        filename=job.fn('trajectory.gsd'),
+        filename=job.fn("trajectory.gsd"),
         trigger=hoomd.trigger.Periodic(10_000),
-        mode='ab',
+        mode="ab",
     )
     simulation.operations.writers.append(gsd_writer)
 
     tune = hoomd.hpmc.tune.MoveSize.scale_solver(
-        moves=['a', 'd'],
+        moves=["a", "d"],
         target=0.2,
         trigger=hoomd.trigger.And(
             [
                 hoomd.trigger.Periodic(100),
-                hoomd.trigger.Before(job.document['compressed_step'] + 5_000),
+                hoomd.trigger.Before(job.document["compressed_step"] + 5_000),
             ]
         ),
     )
@@ -139,19 +139,19 @@ def equilibrate(job):
                 break
     finally:
         hoomd.write.GSD.write(
-            state=simulation.state, mode='wb', filename=job.fn('restart.gsd')
+            state=simulation.state, mode="wb", filename=job.fn("restart.gsd")
         )
 
-        job.document['timestep'] = simulation.timestep
-        job.document['a'] = simulation.operations.integrator.a.to_base()
-        job.document['d'] = simulation.operations.integrator.d.to_base()
+        job.document["timestep"] = simulation.timestep
+        job.document["a"] = simulation.operations.integrator.a.to_base()
+        job.document["d"] = simulation.operations.integrator.d.to_base()
 
         walltime = simulation.device.communicator.walltime
         simulation.device.notice(
-            f'{job.id} ended on step {simulation.timestep} after {walltime} seconds'
+            f"{job.id} ended on step {simulation.timestep} after {walltime} seconds"
         )
 
 
 # Entrypoint.
-if __name__ == '__main__':
+if __name__ == "__main__":
     Project().main()
