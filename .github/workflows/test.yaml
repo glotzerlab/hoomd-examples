@@ -54,6 +54,7 @@ jobs:
         environment-name: test
         environment-file: notebooks/.github/workflows/environments/py312-conda-lock.yml
         micromamba-root-path: ${{ github.workspace }}/micromamba
+        micromamba-version: '2.0.4-0'
 
     - name: Configure conda environment variables
       run: |
