@@ -1,5 +1,4 @@
 channels:
-- conda-forge/label/numpy_rc
 - conda-forge
 dependencies:
 - cereal
@@ -12,7 +11,7 @@ dependencies:
 - ipywidgets
 - jupyterlab
 - ninja
-- numpy>=2.0.0rc1
+- numpy>=2.0.0
 - matplotlib
 - mpi4py
 - openmpi
