@@ -38,8 +38,8 @@ These examples use the following python packages:
 * [HOOMD-blue](http://glotzerlab.engin.umich.edu/hoomd-blue/)
 * [matplotlib](http://matplotlib.org/)
 * [pillow](https://python-pillow.org/)
-* [signac](https://signac.io/)
-* [signac-flow](https://signac.io/)
+* [signac](https://signac.readthedocs.io/)
+* [signac-flow](https://signac.readthedocs.io/)
 
 You can install these from [conda-forge](https://conda-forge.org/):
 
