@@ -38,7 +38,7 @@ jobs:
 
     - name: Restore cached HOOMD-blue build
       id: cache
-      uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+      uses: actions/cache/restore@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
@@ -82,7 +82,7 @@ jobs:
 
     - name: Cache HOOMD-blue build
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+      uses: actions/cache/save@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
