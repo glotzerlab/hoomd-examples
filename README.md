@@ -19,7 +19,7 @@ included in HOOMD-blue's [documentation].
 * [Modelling Patchy Particles](07-Modelling-Patchy-Particles/00-index.ipynb)
 * [Placing Barriers in the Simulation Box](08-Placing-Barriers-in-the-Simulation-Box/00-index.ipynb)
 * [Multiparticle Collision Dynamics](09-Multiparticle-Collision-Dynamics/00-index.ipynb)
-* [Modelling Deformable Interfaces with Meshes](10-Modelling-Deformable-Interfaces-with-Meshes/00-index.ipynb)
+* [Modelling Flexible Active Interfaces](10-Modelling-Flexible-Active-Interfaces/00-index.ipynb)
 
 ## Executing the tutorials
 
