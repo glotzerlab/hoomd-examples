@@ -9,3 +9,5 @@
 * Jinny Cha - Auburn University
 * Michael P. Howard - Auburn University
 * C. Levi Petix - Auburn University
+* Kate Jensen - University of Michigan
+* Philipp W.A. Schönhöfer - University of Michigan
