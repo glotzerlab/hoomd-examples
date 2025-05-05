@@ -50,4 +50,4 @@ def compress(*jobs):
             state=simulation.state, mode="xb", filename=job.fn("compressed.gsd")
         )
         # Save the timestep that compression completed
-        job.document['compressed_step'] = simulation.timestep
+        job.document["compressed_step"] = simulation.timestep

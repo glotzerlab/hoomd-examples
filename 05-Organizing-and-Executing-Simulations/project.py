@@ -5,11 +5,11 @@ from compress import compress
 from equilibrate import equilibrate
 from randomize import randomize
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Parse the command line arguments: python action.py --action <ACTION> [DIRECTORIES]
     parser = argparse.ArgumentParser()
-    parser.add_argument('--action', required=True)
-    parser.add_argument('directories', nargs='+')
+    parser.add_argument("--action", required=True)
+    parser.add_argument("directories", nargs="+")
     args = parser.parse_args()
 
     # Open the signac jobs
@@ -17,9 +17,9 @@ if __name__ == '__main__':
     jobs = [project.open_job(id=directory) for directory in args.directories]
 
     # Call the action
-    if args.action == 'compress':
+    if args.action == "compress":
         compress(*jobs)
-    elif args.action == 'equilibrate':
+    elif args.action == "equilibrate":
         equilibrate(*jobs)
-    elif args.action == 'randomize':
+    elif args.action == "randomize":
         randomize(*jobs)

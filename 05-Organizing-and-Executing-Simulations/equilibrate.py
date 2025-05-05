@@ -12,6 +12,7 @@ RANKS_PER_PARTITION = int(os.environ.get("ACTION_PROCESSES_PER_DIRECTORY", "1"))
 CLUSTER_JOB_WALLTIME_MINUTES = int(os.environ.get("ACTION_WALLTIME_IN_MINUTES", "60"))
 HOOMD_RUN_WALLTIME_LIMIT_SECONDS = CLUSTER_JOB_WALLTIME_MINUTES * 60 - 120
 
+
 def equilibrate(*jobs):
     # Execute N_PARTITIONS job in parallel on N_PARTITIONS * RANKS_PER_PARTITION
     # MPI ranks.
@@ -22,7 +23,7 @@ def equilibrate(*jobs):
     simulation = create_simulation(job, communicator)
 
     # Determine the final timestep of the equilibration process.
-    end_step = job.document['compressed_step'] + N_EQUILIBRATION_STEPS
+    end_step = job.document["compressed_step"] + N_EQUILIBRATION_STEPS
 
     # Restore tuned trial moves from a previous execution of equilibrate.
     simulation.operations.integrator.a = job.document.get("a", {})
@@ -84,4 +85,4 @@ def equilibrate(*jobs):
     # exists. To accomplish this, rename `trajectory.gsd.in_progress` when the
     # completion condition is met.
     if simulation.timestep >= end_step:
-        os.rename(job.fn('trajectory.gsd.in_progress'), job.fn('trajectory.gsd'))
+        os.rename(job.fn("trajectory.gsd.in_progress"), job.fn("trajectory.gsd"))
