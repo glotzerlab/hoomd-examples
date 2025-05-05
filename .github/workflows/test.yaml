@@ -52,7 +52,7 @@ jobs:
       uses: mamba-org/setup-micromamba@0dea6379afdaffa5d528b3d1dabc45da37f443fc # v2.0.4
       with:
         environment-name: test
-        environment-file: notebooks/.github/workflows/environments/py312-conda-lock.yml
+        environment-file: notebooks/.github/workflows/environments/py313-conda-lock.yml
         micromamba-root-path: ${{ github.workspace }}/micromamba
         micromamba-version: '2.0.4-0'
 
