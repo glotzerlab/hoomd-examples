@@ -10,6 +10,8 @@ def randomize(*jobs):
 
         # Read `lattice.gsd` from the signac job's directory.
         simulation.create_state_from_gsd(filename=job.fn("lattice.gsd"))
+
+        # Apply trial moves to randomize the particle positions and orientations.
         simulation.run(10e3)
 
         # Write `random.gsd` to the signac job's directory.

@@ -28,6 +28,7 @@ def compress(*jobs):
         )
         simulation.operations.updaters.append(compress)
 
+        # Tune trial move sizes during the compression.
         periodic = hoomd.trigger.Periodic(10)
         tune = hoomd.hpmc.tune.MoveSize.scale_solver(
             moves=["a", "d"],
@@ -38,6 +39,7 @@ def compress(*jobs):
         )
         simulation.operations.tuners.append(tune)
 
+        # Compress the system to the target box size.
         while not compress.complete and simulation.timestep < 1e6:
             simulation.run(1000)
 

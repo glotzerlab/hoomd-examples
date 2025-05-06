@@ -10,11 +10,14 @@ N_EQUILIBRATION_STEPS = 200000
 # variables.
 RANKS_PER_PARTITION = int(os.environ.get("ACTION_PROCESSES_PER_DIRECTORY", "1"))
 CLUSTER_JOB_WALLTIME_MINUTES = int(os.environ.get("ACTION_WALLTIME_IN_MINUTES", "60"))
-HOOMD_RUN_WALLTIME_LIMIT_SECONDS = CLUSTER_JOB_WALLTIME_MINUTES * 60 - 120
+
+# Allow up to 10 minutes for Python to launch and files to be written at the end.
+# You may need to increase this buffer time on HPC systems with slow filesystems.
+HOOMD_RUN_WALLTIME_LIMIT_SECONDS = CLUSTER_JOB_WALLTIME_MINUTES * 60 - 600
 
 
 def equilibrate(*jobs):
-    # Execute N_PARTITIONS job in parallel on N_PARTITIONS * RANKS_PER_PARTITION
+    # Execute N_PARTITIONS job(s) in parallel on N_PARTITIONS * RANKS_PER_PARTITION
     # MPI ranks.
     communicator = hoomd.communicator.Communicator(
         ranks_per_partition=RANKS_PER_PARTITION
@@ -22,7 +25,8 @@ def equilibrate(*jobs):
     job = jobs[communicator.partition]
     simulation = create_simulation(job, communicator)
 
-    # Determine the final timestep of the equilibration process.
+    # Determine the final timestep of the equilibration process. Use the recorded value
+    # of `compress_step` so that `end_step` is set consistently when continuing.
     end_step = job.document["compressed_step"] + N_EQUILIBRATION_STEPS
 
     # Restore tuned trial moves from a previous execution of equilibrate.
@@ -58,7 +62,7 @@ def equilibrate(*jobs):
     simulation.operations.tuners.append(tune)
 
     # Run the simulation in chunks. After each call to `run` completes, continue
-    # running only if the next run can complete in within the allotted time.
+    # running only if the next run is expected to complete in within the allotted time.
     while simulation.timestep < end_step:
         simulation.run(min(10_000, end_step - simulation.timestep))
 
