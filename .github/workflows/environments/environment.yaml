@@ -18,5 +18,5 @@ dependencies:
 - pillow
 - pybind11
 - python==3.12
+- row
 - signac
-- signac-flow

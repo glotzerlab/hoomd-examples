@@ -40,11 +40,11 @@ These examples use the following python packages:
 * [HOOMD-blue](http://glotzerlab.engin.umich.edu/hoomd-blue/)
 * [matplotlib](http://matplotlib.org/)
 * [pillow](https://python-pillow.org/)
+* [row](https://row.readthedocs.io/)
 * [signac](https://signac.readthedocs.io/)
-* [signac-flow](https://signac.readthedocs.io/)
 
 You can install these from [conda-forge](https://conda-forge.org/):
 
 ```bash
-micromamba install fresnel freud gsd hoomd matplotlib pillow signac signac-flow
+micromamba install fresnel freud gsd hoomd matplotlib pillow row signac
 ```
