@@ -1,0 +1,26 @@
+[workspace]
+authors = ["Joshua A. Anderson <joaander@umich.edu>"]
+channels = ["conda-forge"]
+name = "hoomd-blue"
+platforms = ["linux-64", "osx-arm64"]
+
+[tasks]
+
+[dependencies]
+cereal = "*"
+cmake = "*"
+eigen = "*"
+freud = "*"
+fresnel = "*"
+gsd = "*"
+h5py = "*"
+ipywidgets = "*"
+jupyterlab = "*"
+ninja = "*"
+numpy = "*"
+matplotlib = "*"
+openmpi = "*"
+pybind11 = "*"
+row = "*"
+signac = "*"
+python = "3.13.*"

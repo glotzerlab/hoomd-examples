@@ -1,7 +1,7 @@
 name: Test
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 on:
@@ -13,9 +13,6 @@ on:
       - "trunk-major"
 
   workflow_dispatch:
-
-  schedule:
-  - cron:  '0 18 * * 1'
 
 jobs:
   execute_notebooks:
@@ -49,19 +46,16 @@ jobs:
         path: notebooks
 
     - name: Create Python Environment
-      uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2.0.5
+      uses: prefix-dev/setup-pixi@194d461b21b6c5717c722ffc597fa91ed2ff29fa # v0.9.1
       with:
-        environment-name: test
-        environment-file: notebooks/.github/workflows/environments/py313-conda-lock.yml
-        micromamba-root-path: ${{ github.workspace }}/micromamba
-        micromamba-version: '2.0.4-0'
+        pixi-version: v0.54.1
+        cache: false
+        activate-environment: true
+        manifest-path: notebooks/pixi.toml
 
     - name: Configure conda environment variables
       run: |
         echo "PYTHONPATH=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
-        echo "CONDA_PREFIX=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
 
     - name: Configure
       if: steps.cache.outputs.cache-hit != 'true'
@@ -70,7 +64,6 @@ jobs:
         -DCMAKE_BUILD_TYPE=Release
         -DENABLE_GPU=off
         -DENABLE_MPI=on
-        -DENABLE_TBB=off
         -DBUILD_TESTING=off
         -DENABLE_LLVM=off
         -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install
@@ -111,7 +104,5 @@ jobs:
         do
           grep Warning $file && echo "::warning file=${file}::Has deprecation warnings" && has_warnings=1
         done
-        # Allow deprecation warnings for now.
-        # exit ${has_warnings}
-        exit 0
+        exit ${has_warnings}
       working-directory: notebooks

@@ -28,8 +28,9 @@ general guidelines outlined below when modifying examples.
 
 ### Code style
 
-Code style is enforce by [pre-commit]. You can install [pre-commit] hooks so that it applies on
-every commit.
+Code style is enforce by [prek].
+
+[prek]: https://prek.j178.dev/
 
 ### Methodology
 
