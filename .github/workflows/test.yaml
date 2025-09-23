@@ -51,7 +51,7 @@ jobs:
         pixi-version: v0.54.1
         cache: false
         activate-environment: true
-        manifest-path: code/pixi.toml
+        manifest-path: notebooks/pixi.toml
 
     - name: Configure conda environment variables
       run: |
