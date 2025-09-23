@@ -10,3 +10,6 @@
 __pycache__
 *.h5
 .signac
+# pixi environments
+.pixi/*
+!.pixi/config.toml
