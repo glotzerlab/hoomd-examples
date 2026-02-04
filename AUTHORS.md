@@ -11,3 +11,4 @@
 * C. Levi Petix - Auburn University
 * Kate Jensen - University of Michigan
 * Philipp Schoenhoefer - University of Michigan
+* Benjamin Schwartz - University of Michigan
