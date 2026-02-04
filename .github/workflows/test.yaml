@@ -1,7 +1,7 @@
 name: Test
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 on:
@@ -14,9 +14,6 @@ on:
 
   workflow_dispatch:
 
-  schedule:
-  - cron:  '0 18 * * 1'
-
 jobs:
   execute_notebooks:
     name: Execute notebooks
@@ -24,7 +21,7 @@ jobs:
     steps:
 
     - name: Checkout hoomd
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         path: code
         ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
@@ -38,30 +35,27 @@ jobs:
 
     - name: Restore cached HOOMD-blue build
       id: cache
-      uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+      uses: actions/cache/restore@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
       with:
         path: install
-        key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
+        key: hoomd-blue-${{ steps.hoomd.outputs.sha }}-py313
 
     - name: Checkout notebooks
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         path: notebooks
 
     - name: Create Python Environment
-      uses: mamba-org/setup-micromamba@0dea6379afdaffa5d528b3d1dabc45da37f443fc # v2.0.4
+      uses: prefix-dev/setup-pixi@82d477f15f3a381dbcc8adc1206ce643fe110fb7 # v0.9.3
       with:
-        environment-name: test
-        environment-file: notebooks/.github/workflows/environments/py312-conda-lock.yml
-        micromamba-root-path: ${{ github.workspace }}/micromamba
-        micromamba-version: '2.0.4-0'
+        pixi-version: v0.54.1
+        cache: false
+        activate-environment: true
+        manifest-path: notebooks/pixi.toml
 
     - name: Configure conda environment variables
       run: |
         echo "PYTHONPATH=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
-        echo "CONDA_PREFIX=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
 
     - name: Configure
       if: steps.cache.outputs.cache-hit != 'true'
@@ -70,7 +64,6 @@ jobs:
         -DCMAKE_BUILD_TYPE=Release
         -DENABLE_GPU=off
         -DENABLE_MPI=on
-        -DENABLE_TBB=off
         -DBUILD_TESTING=off
         -DENABLE_LLVM=off
         -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install
@@ -82,7 +75,7 @@ jobs:
 
     - name: Cache HOOMD-blue build
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+      uses: actions/cache/save@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
@@ -111,7 +104,5 @@ jobs:
         do
           grep Warning $file && echo "::warning file=${file}::Has deprecation warnings" && has_warnings=1
         done
-        # Allow deprecation warnings for now.
-        # exit ${has_warnings}
-        exit 0
+        exit ${has_warnings}
       working-directory: notebooks

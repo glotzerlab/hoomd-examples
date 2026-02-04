@@ -17,7 +17,9 @@ included in HOOMD-blue's [documentation].
 * [Organizing and Executing Simulations](05-Organizing-and-Executing-Simulations/00-index.ipynb)
 * [Modelling Rigid Bodies](06-Modelling-Rigid-Bodies/00-index.ipynb)
 * [Modelling Patchy Particles](07-Modelling-Patchy-Particles/00-index.ipynb)
+* [Placing Barriers in the Simulation Box](08-Placing-Barriers-in-the-Simulation-Box/00-index.ipynb)
 * [Multiparticle Collision Dynamics](09-Multiparticle-Collision-Dynamics/00-index.ipynb)
+* [Modelling Flexible Active Interfaces](10-Modelling-Flexible-Active-Interfaces/00-index.ipynb)
 
 ## Executing the tutorials
 
@@ -38,11 +40,11 @@ These examples use the following python packages:
 * [HOOMD-blue](http://glotzerlab.engin.umich.edu/hoomd-blue/)
 * [matplotlib](http://matplotlib.org/)
 * [pillow](https://python-pillow.org/)
+* [row](https://row.readthedocs.io/)
 * [signac](https://signac.readthedocs.io/)
-* [signac-flow](https://signac.readthedocs.io/)
 
 You can install these from [conda-forge](https://conda-forge.org/):
 
 ```bash
-micromamba install fresnel freud gsd hoomd matplotlib pillow signac signac-flow
+micromamba install fresnel freud gsd hoomd matplotlib pillow row signac
 ```

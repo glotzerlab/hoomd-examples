@@ -10,7 +10,7 @@
 * Michael P. Howard - Auburn University
 * C. Levi Petix - Auburn University
 * Kate Jensen - University of Michigan
-* Philipp Schoenhoefer - University of Michigan
+* Philipp W.A. Schönhöfer - University of Michigan
 * Benjamin Schwartz - University of Michigan
 * Zoe Cruse - University of Michigan
 * Jared Shi - University of Michigan
