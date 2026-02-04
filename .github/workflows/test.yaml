@@ -28,7 +28,7 @@ jobs:
       with:
         path: code
         ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
-        repository: glotzerlab/hoomd-examples
+        repository: glotzerlab/hoomd-blue
         submodules: true
 
     - name: Determine hoomd hash
