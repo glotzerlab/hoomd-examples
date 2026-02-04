@@ -1,3 +1,4 @@
-dataspace
-signac.rc
+.row
 .signac
+workspace
+workflow.toml
