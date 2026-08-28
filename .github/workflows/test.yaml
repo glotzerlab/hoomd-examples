@@ -21,7 +21,7 @@ jobs:
     steps:
 
     - name: Checkout hoomd
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         path: code
         ref: ${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}
@@ -35,20 +35,20 @@ jobs:
 
     - name: Restore cached HOOMD-blue build
       id: cache
-      uses: actions/cache/restore@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}-py313
 
     - name: Checkout notebooks
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         path: notebooks
 
     - name: Create Python Environment
-      uses: prefix-dev/setup-pixi@82d477f15f3a381dbcc8adc1206ce643fe110fb7 # v0.9.3
+      uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e # v0.10.2
       with:
-        pixi-version: v0.54.1
+        pixi-version: v0.73.0
         cache: false
         activate-environment: true
         manifest-path: notebooks/pixi.toml
@@ -75,7 +75,7 @@ jobs:
 
     - name: Cache HOOMD-blue build
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: install
         key: hoomd-blue-${{ steps.hoomd.outputs.sha }}
