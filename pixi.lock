@@ -3539,7 +3539,7 @@ packages:
   sha256: ee3bca803cac13760131b6147e2fe60c97e769978e7542d678842b65e285d239
   md5: 94480ec10238da5dd5659ae0b933634b
   depends:
-  - python >=3.11
+  - python >=3.10
   license: ISC
   run_exports: {}
   size: 136752
